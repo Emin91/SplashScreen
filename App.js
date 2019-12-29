@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, ImageBackground } from 'react-native'
+import {createSwitchNavigator, createAppContainer} from 'react-navigation'
+import Users from './src/screens/UserList'
 
 import Scrollist from './src/screens/List'
 import Input from './src/screens/Input'
 import Header from './src/screens/Header'
-
 
 class App extends Component {
   render() {
@@ -29,3 +30,5 @@ const styles = StyleSheet.create({
 })
 
 export default App
+
+
