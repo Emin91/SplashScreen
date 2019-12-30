@@ -1,6 +1,6 @@
 export const initialState = {
     
-    result: ': eval(JSON.stringify(result))'
+    result: require('../src/assets/img/bg1.png')
     
 }
 
@@ -8,8 +8,8 @@ function reducer(state = initialState, action) {
     
     if (action.id == 1) {
 
-        result = '../src/assets/img/bg1.png'
-        return { result: eval(JSON.stringify(result)) }
+        result = require('../src/assets/img/bg2.png')
+        return { result:JSON.stringify(result) }
     } else if (action.id == 2) {
         result = ''
         return { result: eval(JSON.stringify(result)) }

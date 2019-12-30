@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 
+
 export class ScrollScreen extends Component {
   constructor() {
     super()
@@ -12,13 +13,14 @@ export class ScrollScreen extends Component {
 
     }
   }
-
+  
   render() {
     return (
-      <ImageBackground style={{ flex: 1,  }} >
+     
+      <ImageBackground style={{ flex: 1, }} source={this.props.result} >
         <KeyboardAwareScrollView style={{ width: '100%', height: '100%' }}>
-          <Text style={{}}>bssdsdfdh</Text>
-          <Text>uyhfdshvdfbjhgigjhgsjhgjhsdhdhjhjhdfl</Text>
+          <Text >bssdsdfdh</Text>
+          <Text>{this.props.result}</Text>
           <Text>bshgdfhgjh</Text>
           <Text>bshgdfhgjh</Text>
           <Text>bshgdfdcdhgjh</Text>
