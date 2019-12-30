@@ -18,7 +18,7 @@ function reducer(state = initialState, action) {
         result = 'red'
         return { result: eval(JSON.stringify(result)) }
     }
-    
+    action;
     return state
 }
 export default reducer
