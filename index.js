@@ -1,15 +1,20 @@
 /**
  * @format
  */
+import reducer from './reducer/reducer'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
 
 import React, { Component } from 'react'
 import {AppRegistry, Animated} from 'react-native';
 import {name as appName} from './app.json';
 import App from './App'
-import SplashScreen from './src/screens/SplashScreen'
+import SplashScreen from './screens/SplashScreen'
+import  {createLogger} from 'redux-logger';
+
 //import UserList from './src/screens/UserList'
 
-class Main extends Component {
+export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -26,5 +31,9 @@ class Main extends Component {
         return mainScreen
     }
 }
+const Myentrypoint = () => 
+<Provider store={mystore}>< App/></Provider>
 
-AppRegistry.registerComponent(appName, () => Main);
+export const mystore = createStore(reducer, applyMiddleware(createLogger()))
+
+AppRegistry.registerComponent(appName, () => Myentrypoint);

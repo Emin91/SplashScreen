@@ -4,10 +4,10 @@ import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
 
 //import Users from './src/screens/UserList'
-import Scrollist from './src/screens/List'
-import Input from './src/screens/Input'
-import UserList from './src/screens/UserList'
-import DrawerMenu from './src/screens/DrawerMenu'
+import Scrollist from './screens/List'
+import Input from './screens/Input'
+import UserList from './screens/UserList'
+import DrawerMenu from './screens/DrawerMenu'
 
 class App extends Component {
   constructor(props) {

@@ -13,7 +13,7 @@ export default class App extends Component {
         <TouchableOpacity style={{position: 'absolute', marginLeft: '87%'}}>
           <Image 
             style={{width: 40, height: 35}}
-            source={require('../assets/img/Send.png')}
+            source={require('../src/assets/img/Send.png')}
           />
         </TouchableOpacity>
       </View>

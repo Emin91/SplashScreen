@@ -6,7 +6,7 @@ export default class SplashScreen extends Component {
         return (
             <View style={styles.container}>
                 <Image 
-                    source={require('../../src/assets/img/logo.png')} 
+                    source={require('../src/assets/img/logo.png')} 
                     style={styles.logo}/>
             </View>
         )
