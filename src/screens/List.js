@@ -6,7 +6,7 @@ export default class ScrollScreen extends Component {
     render() {
       return (
         <KeyboardAwareScrollView style={{width: '100%', height: '100%'}}>
-        <View sty={{flex: 1, backgroundColor: '#412233'}}>
+        <View sty={{flex: 1}}>
           <Text>bssdsdfdh</Text>
           <Text>dc</Text>
           <Text>bshgdfhgjh</Text>
