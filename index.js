@@ -28,7 +28,7 @@ export default class Main extends Component {
 }
 const Myentrypoint = () => 
 <Provider store={mystore}>< App/></Provider>
-
 export const mystore = createStore(RootReducer, applyMiddleware(logger))
 
-AppRegistry.registerComponent(appName, () => Myentrypoint);
+
+AppRegistry.registerComponent(appName, () => Main);
