@@ -31,14 +31,14 @@ export class DrawerMenu extends Component {
                             </View>
                             <View style={{ flex: 8, backgroundColor: 'white', flexDirection: 'column', justifyContent: 'space-around', borderRadius: 30 }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#FC441B' }} onPress={() => this.props.color (color = "1")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2980B9' }} onPress={() => this.props.color (color = "2")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2ECC71' }} onPress={() => this.props.color (color = "3")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#FC441B' }} onPress={() => this.props.number (id = "1")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2980B9' }} onPress={() => this.props.number (id = "2")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2ECC71' }} onPress={() => this.props.number (id = "3")}></TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2C3E50' }} onPress={() => this.props.color(color = "4")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#F39C12' }} onPress={() => this.props.color(color = "5")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#8E44AD' }} onPress={() => this.props.color(color = "6")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2C3E50' }} onPress={() => this.props.number(id = "4")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#F39C12' }} onPress={() => this.props.number(id = "5")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#8E44AD' }} onPress={() => this.props.number(id = "6")}></TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -92,7 +92,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         number: (id) => dispatch(chacgebg(id)),
-        color: (color) => dispatch(changeColor(color)),
+       
 
     }
 
@@ -101,14 +101,3 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu)
 
 
-
-const styles = StyleSheet.create({
-    mainView: {
-        flex: 1,
-        backgroundColor: '#F23A12'
-    },
-    logoView: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})

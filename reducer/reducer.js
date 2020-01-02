@@ -1,41 +1,76 @@
 export const initialState = {
     result: require('../src/assets/img/default.png'),
+
+    back:'#FC441B'
 }
 
 function reducer(state = initialState, action) {
-
-    if (action.type == 'Change') {
-        if (action.id == 7) {
+  
+    if (action.id == 7) {
             console.log('buttom is working')
             result = require('../src/assets/img/bg1.png')
-            return { result: JSON.stringify(result) }
+            return { ...state,result: JSON.stringify(result) }
         }
         else if (action.id == 8) {
             console.log('buttom is working')
             result = require('../src/assets/img/bg2.png')
-            return { result: JSON.stringify(result) }
+            return {...state, result: JSON.stringify(result) }
         }
         else if (action.id == 9) {
             console.log('buttom is working')
             result = require('../src/assets/img/bg3.png')
-            return { result: JSON.stringify(result) }
+            return {...state, result: JSON.stringify(result) }
         }
         else if (action.id == 10) {
             console.log('buttom is working')
             result = require('../src/assets/img/bg4.png')
-            return { result: JSON.stringify(result) }
+            return { ...state,result: JSON.stringify(result) }
         }
         else if (action.id == 11) {
             console.log('buttom is working')
             result = require('../src/assets/img/bg5.png')
-            return { result: JSON.stringify(result) }
+            return {...state, result: JSON.stringify(result) }
         }
         else if (action.id == 12) {
             console.log('buttom is working')
             result = require('../src/assets/img/default.png')
-            return { result: JSON.stringify(result) }
+            return { ...state,result: JSON.stringify(result) }
         }
-    }
+        
+        else if (action.id == 1) {
+            console.log("Button working")
+            back = '#FC441B'
+            return {...state, back }
+        }
+        else if (action.id == 2) {
+            console.log('buttom is working')
+            back = '#2980B9'
+           
+            return { ...state,back }
+        }
+        else if (action.id == 3) {
+            console.log('buttom is working')
+            back = '#2ECC71'
+            return { ...state,back }
+        }
+        else if (action.id == 4) {
+            console.log('buttom is working')
+            back = '#2C3E50'
+            return { ...state,back }
+        }
+        else if (action.id == 5) {
+            console.log('buttom is working')
+            back = '#F39C12'
+            return {...state, back}
+        }
+        else if (action.id == 6) {
+            console.log('buttom is working')
+            back = '#8E44AD'
+            return {...state, back }
+        }
+    
+   
+    
     return state
 }
 

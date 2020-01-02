@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     number: (id) => dispatch(chacgebg(id)),
-    color: (color) => dispatch(changeColor(color)),
+  
 
   }
 

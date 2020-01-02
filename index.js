@@ -7,7 +7,7 @@ import {AppRegistry, Animated} from 'react-native';
 import {name as appName} from './app.json';
 import App from './App'
 import SplashScreen from './screens/SplashScreen'
-import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 export default class Main extends Component {
     constructor(props) {
@@ -22,13 +22,13 @@ export default class Main extends Component {
 
     render() {
         const {currentScreen} = this.state
-        let mainScreen = currentScreen === 'Splash' ? <SplashScreen /> : <App />
+        let mainScreen = currentScreen === 'Splash' ? <SplashScreen /> : <Myentrypoint />
         return mainScreen
     }
 }
 const Myentrypoint = () => 
 <Provider store={mystore}>< App/></Provider>
 
-export const mystore = createStore(RootReducer, applyMiddleware(thunk))
+export const mystore = createStore(RootReducer, applyMiddleware(logger))
 
 AppRegistry.registerComponent(appName, () => Myentrypoint);
