@@ -1,0 +1,44 @@
+import React, { Component } from 'react'
+import { View } from 'react-native'
+
+<<<<<<< HEAD
+//import Users from './src/screens/UserList'
+import Scrollist from './screens/List'
+import Input from './screens/Input'
+import UserList from './screens/UserList'
+import DrawerMenu from './screens/DrawerMenu'
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    
+}
+
+renderDrawer() {
+  return (
+      <View style={{flex: 1}}>
+         <DrawerMenu />
+      </View>
+  )
+}
+
+openDrawer() {
+  this.drawer.open()
+}
+
+closeDrawer() {
+  this.drawer.close()
+}
+=======
+import DrawerNav from './navigation/DrawerNavigation'
+>>>>>>> origin/Added_User_List
+
+export default class App extends Component {
+  render() {
+    return (
+      <View style={{flex: 1}}>
+        <DrawerNav />
+      </View>
+    )
+  }
+}

@@ -9,6 +9,8 @@ import App from './App'
 import SplashScreen from './screens/SplashScreen'
 import logger from 'redux-logger';
 
+console.disableYellowBox=true;
+
 export default class Main extends Component {
     constructor(props) {
         super(props);
