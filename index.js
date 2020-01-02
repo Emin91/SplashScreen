@@ -1,7 +1,4 @@
-/**
- * @format
- */
-import reducer from './reducer/reducer'
+import RootReducer from './reducer/reducer'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 
@@ -10,9 +7,7 @@ import {AppRegistry, Animated} from 'react-native';
 import {name as appName} from './app.json';
 import App from './App'
 import SplashScreen from './screens/SplashScreen'
-import  {createLogger} from 'redux-logger';
-
-//import UserList from './src/screens/UserList'
+import thunk from 'redux-thunk';
 
 export default class Main extends Component {
     constructor(props) {
@@ -34,6 +29,6 @@ export default class Main extends Component {
 const Myentrypoint = () => 
 <Provider store={mystore}>< App/></Provider>
 
-export const mystore = createStore(reducer, applyMiddleware(createLogger()))
+export const mystore = createStore(RootReducer, applyMiddleware(thunk))
 
 AppRegistry.registerComponent(appName, () => Myentrypoint);

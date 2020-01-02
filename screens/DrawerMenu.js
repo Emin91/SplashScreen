@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, Dimensions, StyleSheet, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { chacgebg } from '../action/action'
+import { chacgebg,changeColor } from '../action/action'
 
 
 const screenWidth = Math.round(Dimensions.get('window').width);
@@ -31,14 +31,14 @@ export class DrawerMenu extends Component {
                             </View>
                             <View style={{ flex: 8, backgroundColor: 'white', flexDirection: 'column', justifyContent: 'space-around', borderRadius: 30 }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#FC441B' }} onPress={() => this.props.number(id = "1")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2980B9' }} onPress={() => this.props.number(id = "2")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2ECC71' }} onPress={() => this.props.number(id = "3")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#FC441B' }} onPress={() => this.props.color (color = "1")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2980B9' }} onPress={() => this.props.color (color = "2")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2ECC71' }} onPress={() => this.props.color (color = "3")}></TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2C3E50' }} onPress={() => this.props.number(id = "4")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#F39C12' }} onPress={() => this.props.number(id = "5")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#8E44AD' }} onPress={() => this.props.number(id = "6")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2C3E50' }} onPress={() => this.props.color(color = "4")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#F39C12' }} onPress={() => this.props.color(color = "5")}></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#8E44AD' }} onPress={() => this.props.color(color = "6")}></TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -56,16 +56,16 @@ export class DrawerMenu extends Component {
                                         <ImageBackground source={require('../src/assets/img/bg1.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
                                     <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "8")}>
                                         <ImageBackground source={require('../src/assets/img/bg2.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }}onPress={() => this.props.number(id = "9")}>
-                                        <ImageBackground source={require('../src/assets/img/bg3.png')} style={{ width: '100%', height: '100%' }}  /></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "9")}>
+                                        <ImageBackground source={require('../src/assets/img/bg3.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
                                     <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "10")}>
-                                        <ImageBackground source={require('../src/assets/img/bg4.png')} style={{ width: '100%', height: '100%' }}  /></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }}onPress={() => this.props.number(id = "11")}>
-                                        <ImageBackground source={require('../src/assets/img/bg5.png')} style={{ width: '100%', height: '100%' }}  /></TouchableOpacity>
+                                        <ImageBackground source={require('../src/assets/img/bg4.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
+                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "11")}>
+                                        <ImageBackground source={require('../src/assets/img/bg5.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
                                     <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "12")}>
-                                        <ImageBackground source={require('../src/assets/img/default.png')} style={{ width: '100%', height: '100%' }}  /></TouchableOpacity>
+                                        <ImageBackground source={require('../src/assets/img/default.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -85,12 +85,14 @@ export class DrawerMenu extends Component {
 function mapStateToProps(state) {
     return {
         result: state.result,
+        back: state.back,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         number: (id) => dispatch(chacgebg(id)),
+        color: (color) => dispatch(changeColor(color)),
 
     }
 
