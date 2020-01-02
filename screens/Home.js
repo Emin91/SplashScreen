@@ -3,13 +3,12 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, ImageBackground } from
 import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
 
-//import Users from './src/screens/UserList'
-//import Scrollist from './screens/'
+import Scrollist from './List'
 import Input from './Input'
-import UserList from './src/screens/UserList'
+import UserList from './UserList'
 import DrawerMenu from './DrawerMenu'
 
-class Home extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
 }
@@ -88,4 +87,6 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Home
+export default App
+
+
