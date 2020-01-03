@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, ImageBackground } from 'react-native'
+import { Text, ImageBackground, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from 'react-redux'
 import { chacgebg, changeColor } from '../action/action'
@@ -10,20 +10,22 @@ export class ScrollScreen extends Component {
     return (
 
       <ImageBackground style={{ flex: 1, }}  >
-        <KeyboardAwareScrollView style={{ width: '100%', height: '100%' }}>
-          <Text style={{backgroundColor: this.props.back}}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
-          and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 
-          typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing 
-          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem 
-          Ipsum.Why do we use it?It is a long established fact that a reader will be distracted by the readable content of a page when 
-          looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed 
-          to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page 
-          editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in 
-          their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and 
-          the like).
-          </Text>
+        <KeyboardAwareScrollView style={{ width: '100%', height: '100%', marginTop: 10 }}>
+        <View style={{ width: 223, flex: 1, backgroundColor: '#FFFFFF', marginBottom: 2, borderBottomRightRadius: 20, borderTopRightRadius: 20, borderWidth: 1, borderColor: '#DCDCDC' }}>
+            <Text> User3             192.168.243.332</Text>
+          </View>
+          <View style={{ width: 223, flexDirection: 'row', flex: 1, backgroundColor: '#FFFFFF', borderTopRightRadius: 20, borderBottomRightRadius: 20, borderWidth: 1, borderColor: '#DCDCDC' }}>
+            <View style={{ flex: 3, justifyContent: 'flex-start' }}><Text style={{ marginLeft: 10, fontSize: 18, }}> Hi.</Text></View>
+            <View style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end' }}><Text> 12:24</Text></View>
+          </View>
+          <View style={{ flexDirection: 'row-reverse'}}>
+            <View style={{ width: 223 }}>
+              <Text style={{ marginTop: 10,borderBottomLeftRadius: 20,borderTopLeftRadius: 20,fontSize: 18,color: '#FFFFFF',backgroundColor: this.props.back
+              }}> Hi. I am Test </Text>
+              <Text style={{ marginTop: 3, borderBottomLeftRadius: 20,borderTopLeftRadius: 20,fontSize: 18,color: '#FFFFFF',backgroundColor: this.props.back
+              }}> Some text writed here.  </Text>
+            </View>
+          </View>
         </KeyboardAwareScrollView>
       </ImageBackground>
     )
@@ -40,7 +42,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     number: (id) => dispatch(chacgebg(id)),
-  
+
 
   }
 
