@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
+import { connect } from 'react-redux'
+import { chacgebg, changeColor } from '../action/action'
 
 import Scrollist from './List'
 import Input from './Input'
-import UserList from './UserList'
 import DrawerMenu from './DrawerMenu'
+
+import styles from '../styles/HomeStyle'
 
 class App extends Component {
   constructor(props) {
@@ -37,9 +40,10 @@ closeDrawer() {
         tapToClose={true}
         openDrawerOffset={0.25}
         content={this.renderDrawer()}
+        //open={true}
         side={'left'}>
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>        
-          <ImageBackground style={styles.container}>
+        <View style={{ flex: 1, }}>        
+          <ImageBackground style={styles.container} source={this.props.result}>
             <View style={styles.container}>
             <Header
                     centerContainerStyle={{ justifyContent: 'center', }}
@@ -73,20 +77,21 @@ closeDrawer() {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: null,
-    height: null,
-  },
-  burgerBtn: {
-    width: 25,
-    height: 20,
-    marginTop: 32, 
-    marginLeft: 20,
-  },
-})
 
-export default App
+function mapStateToProps(state) {
+  return {
+    result: state.result,
+    back: state.back,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    number: (id) => dispatch(chacgebg(id)),
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 
 

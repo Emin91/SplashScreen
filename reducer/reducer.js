@@ -1,3 +1,5 @@
+import {ToastAndroid} from 'react-native';
+
 export const initialState = {
     result: require('../src/assets/img/default.png'),
 
@@ -38,7 +40,7 @@ function reducer(state = initialState, action) {
         }
         
         else if (action.id == 1) {
-            console.log("Button working")
+            ToastAndroid.show('Message background color is Orange', ToastAndroid.SHORT);
             back = '#FC441B'
             return {...state, back }
         }
