@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     mainView: {
+      height: 50,
       paddingLeft: 4, 
       paddingRight: 4, 
       paddingBottom: 2, 
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
       height: '100%', 
       position: 'absolute', 
       justifyContent: 'center', 
-      alignItems: 'flex-end', 
+      alignItems: 'flex-end',
       paddingRight: 4,
     },
   })

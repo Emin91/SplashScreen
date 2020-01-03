@@ -10,11 +10,13 @@ export default class App extends Component {
         <TextInput
           style={styles.textInput}
           placeholder='Type something...'
+          selectionColor={'#FC441B'}
+          tex
         />
         <View style={styles.btnSendView}>
           <TouchableOpacity>
             <Image
-              style={{ width: 40, height: 34 }}
+              style={{ width: 38, height: 32 }}
               source={require('../src/assets/img/Send.png')}
             />
           </TouchableOpacity>
