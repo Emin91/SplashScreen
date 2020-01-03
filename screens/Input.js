@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
+
+import styles from '../styles/InputStyle'
 
 export default class App extends Component {
-    render() {
-      return (
-        <View style={{ backgroundColor: '#fff', justifyContent: 'center', padding: 4 , }}>
-        <View style={{backgroundColor: 'red'}}/>
+  render() {
+    return (
+      <View style={styles.mainView}>
         <TextInput
-          style={{paddingLeft: '8%', backgroundColor: 'white', borderColor: '#FC441B', borderWidth: 1.8, fontSize: 18, borderRadius: 66, fontFamily: 'CircularStd-Book' }}
+          style={styles.textInput}
           placeholder='Type something...'
         />
-        <TouchableOpacity style={{position: 'absolute', marginLeft: '87%'}}>
-          <Image 
-            style={{width: 40, height: 35}}
-            source={require('../src/assets/img/Send.png')}
-          />
-        </TouchableOpacity>
+        <View style={styles.btnSendView}>
+          <TouchableOpacity>
+            <Image
+              style={{ width: 40, height: 34 }}
+              source={require('../src/assets/img/Send.png')}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      )
-    }
+    )
   }
+}
+

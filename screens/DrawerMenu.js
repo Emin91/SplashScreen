@@ -1,78 +1,179 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, Dimensions, StyleSheet, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { chacgebg,changeColor } from '../action/action'
+import { chacgebg, changeColor } from '../action/action'
+import styles from '../styles/DrawerMenuStyle'
 
-
-const screenWidth = Math.round(Dimensions.get('window').width);
 export class DrawerMenu extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-
-
+            colorTitle: "Message background",
+            backgroundTitle: "Backgrounds",
+            changeUserNameText: "Change user name:",
         }
     }
     render() {
         return (
-            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#FC441B', }} behavior='padding' keyboardVerticalOffset={-255} enabled>
+            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F23A12', }} behavior='padding' keyboardVerticalOffset={-255} enabled>
                 <ScrollView style={{ flex: 1 }}>
-                    <View style={{ flex: 1, backgroundColor: '#F23A12' }}>
-                        <View style={{ alignItems: 'center', marginBottom: 5 }}>
-                            <Image source={require('../src/assets/img/logo.png')} style={{ width: 160, height: 145 }} />
+                    <View style={styles.container}>
+                        <View style={styles.logoView}>
+                            <Image
+                                source={require('../src/assets/img/logo.png')}
+                                style={styles.logo} />
                         </View>
-                        <View style={{ flex: 1, borderRadius: 30, backgroundColor: 'white', marginBottom: 10 }}>
-                            <View style={{ flex: 1, alignItems: 'center' }}>
-                                <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#D2D2D2', borderBottomLeftRadius: 25, borderBottomRightRadius: 25, width: 200, }}>
-                                    <Text style={{ fontSize: 18, }}>
-                                        Message background
-                            </Text>
+                        <View style={styles.colorsMainView}>
+                            <View style={{ flex: 1, borderRadius: 10, backgroundColor: '#fff', }}>
+                                <View style={{ flex: 1, alignItems: 'center', }}>
+                                    <View style={styles.textView}>
+                                        <Text style={{ fontSize: 18, fontFamily: 'CircularStd-Book' }}>
+                                            {this.state.colorTitle}
+                                        </Text>
+                                    </View>
                                 </View>
-                            </View>
-                            <View style={{ flex: 8, backgroundColor: 'white', flexDirection: 'column', justifyContent: 'space-around', borderRadius: 30 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#FC441B' }} onPress={() => this.props.number (id = "1")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2980B9' }} onPress={() => this.props.number (id = "2")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2ECC71' }} onPress={() => this.props.number (id = "3")}></TouchableOpacity>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#2C3E50' }} onPress={() => this.props.number(id = "4")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#F39C12' }} onPress={() => this.props.number(id = "5")}></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 65 / 2, backgroundColor: '#8E44AD' }} onPress={() => this.props.number(id = "6")}></TouchableOpacity>
+                                <View style={{ flexDirection: 'column', }}>
+                                    <View style={styles.imgLineOne}>
+                                        <View style={{ flex: 0.05 }}></View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={[styles.colorsBtn, { backgroundColor: '#FC441B' }]}
+                                                onPress={() => this.props.number(id = "1")} />
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={[styles.colorsBtn, { backgroundColor: '#2980B9' }]}
+                                                onPress={() => this.props.number(id = "2")} />
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={[styles.colorsBtn, { backgroundColor: '#2ECC71' }]}
+                                                onPress={() => this.props.number(id = "3")} />
+                                        </View>
+                                        <View style={{ flex: 0.05 }}></View>
+                                    </View>
+                                    <View style={styles.imgLineOne}>
+                                        <View style={{ flex: 0.05 }}></View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={[styles.colorsBtn, { backgroundColor: '#2C3E50' }]}
+                                                onPress={() => this.props.number(id = "4")} />
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={[styles.colorsBtn, { backgroundColor: '#F39C12' }]}
+                                                onPress={() => this.props.number(id = "5")} />
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={[styles.colorsBtn, { backgroundColor: '#8E44AD' }]}
+                                                onPress={() => this.props.number(id = "6")} />
+                                        </View>
+                                        <View style={{ flex: 0.05 }}></View>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                        <View style={{ flex: 1, borderRadius: 30, backgroundColor: 'white' }}>
-                            <View style={{ flex: 1, alignItems: 'center', marginBottom: 5 }}>
-                                <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#D2D2D2', borderBottomLeftRadius: 25, borderBottomRightRadius: 25, width: 200, }}>
-                                    <Text style={{ fontSize: 18, }}>
-                                        Background
-                                    </Text>
+
+                        <View style={{ flex: 1, padding: 10 }} />
+
+                        <View style={{ flex: 1, paddingLeft: 10, paddingRight: 10 }}>
+                            <View style={{ flex: 1, borderRadius: 10, backgroundColor: '#fff', }}>
+                                <View style={{ flex: 1, alignItems: 'center', }}>
+                                    <View style={styles.textView}>
+                                        <Text style={{ fontSize: 18, fontFamily: 'CircularStd-Book' }}>
+                                            {this.state.colorTitle}
+                                        </Text>
+                                    </View>
                                 </View>
-                            </View>
-                            <View style={{ flex: 8, backgroundColor: 'white', flexDirection: 'column', justifyContent: 'space-around', borderRadius: 30 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "7")} >
-                                        <ImageBackground source={require('../src/assets/img/bg1.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "8")}>
-                                        <ImageBackground source={require('../src/assets/img/bg2.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "9")}>
-                                        <ImageBackground source={require('../src/assets/img/bg3.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "10")}>
-                                        <ImageBackground source={require('../src/assets/img/bg4.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "11")}>
-                                        <ImageBackground source={require('../src/assets/img/bg5.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                                    <TouchableOpacity style={{ flex: 0.22, width: 65, height: 65, borderRadius: 10 }} onPress={() => this.props.number(id = "12")}>
-                                        <ImageBackground source={require('../src/assets/img/default.png')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
+                                <View style={{ flexDirection: 'column',paddingBottom: 10 }}>
+                                    <View style={styles.imgLineOne}>
+                                        <View style={{ flex: 0.05 }}></View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={styles.backgroundBtn}
+                                                onPress={() => this.props.number(id = "7")}>
+                                                    <ImageBackground 
+                                                    source={require('../src/assets/img/bg1.png')} 
+                                                    style={styles.imgStyle}
+                                                    imageStyle={{borderRadius: 8}} />
+                                                </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={styles.backgroundBtn}
+                                                onPress={() => this.props.number(id = "8")}>
+                                                    <ImageBackground 
+                                                    source={require('../src/assets/img/bg2.png')} 
+                                                    style={styles.imgStyle}
+                                                    imageStyle={{borderRadius: 8}} />
+                                                </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={styles.backgroundBtn}
+                                                onPress={() => this.props.number(id = "9")}>
+                                                    <ImageBackground 
+                                                    source={require('../src/assets/img/bg3.png')} 
+                                                    style={styles.imgStyle}
+                                                    imageStyle={{borderRadius: 8}} />
+                                                </TouchableOpacity>
+                                        </View>
+                                        <View style={{ flex: 0.05 }}></View>
+                                    </View>
+                                    <View style={styles.imgLineOne}>
+                                        <View style={{ flex: 0.05 }}></View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={styles.backgroundBtn}
+                                                onPress={() => this.props.number(id = "10")}>
+                                                    <ImageBackground 
+                                                    source={require('../src/assets/img/bg4.png')} 
+                                                    style={styles.imgStyle}
+                                                    imageStyle={{borderRadius: 8}} />
+                                                </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={styles.backgroundBtn}
+                                                onPress={() => this.props.number(id = "11")}>
+                                                    <ImageBackground 
+                                                    source={require('../src/assets/img/bg5.png')} 
+                                                    style={styles.imgStyle}
+                                                    imageStyle={{borderRadius: 8}} />
+                                                </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.colorsBtnBox}>
+                                            <TouchableOpacity
+                                                style={styles.backgroundBtn}
+                                                onPress={() => this.props.number(id = "12")}>
+                                                    <ImageBackground 
+                                                    source={require('../src/assets/img/default.png')} 
+                                                    style={styles.imgStyle}
+                                                    imageStyle={{borderRadius: 8}} />
+                                                </TouchableOpacity>
+                                        </View>
+                                        <View style={{ flex: 0.05 }}></View>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                        <View style={{ flex: 0.4, backgroundColor: '#FC441B', alignItems: 'center' }} keyboardShouldPersistTaps="always">
-                            <Text style={{ flex: 1, fontSize: 18, }}>Change user name:</Text>
-                            <TextInput style={{ backgroundColor: 'white', alignItems: 'center', fontSize: 18, width: screenWidth - 100, borderRadius: 70 }} >
-                            </TextInput>
+                        <View style={styles.changeUserNameView}>
+                            <Text style={styles.changeUserNameText}>{this.state.changeUserNameText}</Text>
+                        </View>
+                        <View style={{paddingLeft: 5, paddingRight: 5}}>
+                            <TextInput
+                                style={styles.textInputStyle}
+                                placeholder='Type something...'
+                            />
+                            <View style={styles.inputSendBtn}>
+                                <TouchableOpacity>
+                                    <Image
+                                        style={{width: 40, height: 34 }}
+                                        source={require('../src/assets/img/Save.png')}
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </ScrollView>
@@ -80,7 +181,6 @@ export class DrawerMenu extends Component {
         )
     }
 }
-
 
 function mapStateToProps(state) {
     return {
@@ -92,10 +192,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         number: (id) => dispatch(chacgebg(id)),
-       
-
     }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu)
