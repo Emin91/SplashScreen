@@ -17,12 +17,23 @@ export class ScrollScreen extends Component {
             <View style={{ flex: 3, justifyContent: 'flex-start' }}><Text style={{ marginLeft: 10, fontSize: 18, }}> Hi.</Text></View>
             <View style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end' }}><Text> 12:24</Text></View>
           </View>
-          <View style={{ flexDirection: 'row-reverse'}}>
-            <View style={{ width: 223 }}>
-              <Text style={{ marginTop: 10,borderBottomLeftRadius: 20,borderTopLeftRadius: 20,fontSize: 18,color: '#FFFFFF',backgroundColor: this.props.back
-              }}> Hi. I am Test </Text>
-              <Text style={{ marginTop: 3, borderBottomLeftRadius: 20,borderTopLeftRadius: 20,fontSize: 18,color: '#FFFFFF',backgroundColor: this.props.back
-              }}> Some text writed here.  </Text>
+          <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 5}}>
+            <View style={{ width: 290, backgroundColor: 'green' }}>
+              <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
+              }}> Hi. I am Test</Text>
+              <View style={{height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start'}}>
+              <Text style={{ color: '#EDEDED',}}>6:30 PM</Text>
+              </View>
+            </View>
+          </View>
+          <View style={{ flexDirection: 'row-reverse',}}>
+            <View style={{ width: 290, backgroundColor: 'green', paddingTop: 5, paddingBottom: 5 }}>
+              <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
+              }}> <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
+            }}> Lorem </Text></Text>
+              <View style={{height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start'}}>
+              <Text style={{ color: '#EDEDED',}}>6:30 PM</Text>
+              </View>
             </View>
           </View>
         </KeyboardAwareScrollView>

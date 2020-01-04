@@ -82,7 +82,7 @@ export class DrawerMenu extends Component {
                                 <View style={{ flex: 1, alignItems: 'center', }}>
                                     <View style={styles.textView}>
                                         <Text style={{ fontSize: 18, fontFamily: 'CircularStd-Book' }}>
-                                            {this.state.colorTitle}
+                                            {this.state.backgroundTitle}
                                         </Text>
                                     </View>
                                 </View>
@@ -148,7 +148,7 @@ export class DrawerMenu extends Component {
                                                 style={styles.backgroundBtn}
                                                 onPress={() => this.props.number(id = "12")}>
                                                     <ImageBackground 
-                                                    source={require('../src/assets/img/default.png')} 
+                                                    source={require('../src/assets/img/default.jpg')} 
                                                     style={styles.imgStyle}
                                                     imageStyle={{borderRadius: 8}} />
                                                 </TouchableOpacity>

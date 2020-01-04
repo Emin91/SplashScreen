@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Image, TouchableOpacity, ImageBackground, StatusBar } from 'react-native'
 import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
 import { connect } from 'react-redux'
@@ -42,7 +42,8 @@ closeDrawer() {
         content={this.renderDrawer()}
         //open={true}
         side={'left'}>
-        <View style={{ flex: 1, }}>        
+        <View style={{ flex: 1, }}> 
+        <StatusBar backgroundColor="#F23A12" barStyle="light-content" />       
           <ImageBackground style={styles.container} source={this.props.result}>
             <View style={styles.container}>
             <Header
