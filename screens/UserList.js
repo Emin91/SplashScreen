@@ -46,7 +46,7 @@ class UserList extends Component {
                 </View>
                 <View style={styles.sepView}>
                     <Text style={styles.headerViewText}>List of
-                    <Text style={styles.textOffline}> Ofline </Text>
+                    <Text style={styles.textOffline}> Offline </Text>
                         Users
                     </Text>
                 </View>

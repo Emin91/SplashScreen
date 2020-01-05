@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     },
     redDot: {
-        backgroundColor: 'red', 
+        backgroundColor: '#626262', 
         width: 10, 
         height: 10, 
         borderRadius: 30,
