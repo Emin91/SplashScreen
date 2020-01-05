@@ -1,45 +1,97 @@
 import React, { Component } from 'react'
-import { Text, ImageBackground, View } from 'react-native'
+import { Text, ImageBackground, View, FlatList } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
+import { NetworkInfo } from 'react-native-network-info';
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
+
+
+const URL = 'ws://one-chat.eu-4.evennode.com/'
+Item = ({ text, time, ip }) => {
+  return (
+    <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }} >
+      <Text style={{
+        paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: 'black', fontFamily: 'CircularStd-Book'
+      }} >{time}</Text>
+      <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }} >
+        <Text style={{
+        paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: 'black', fontFamily: 'CircularStd-Book'
+      }}>{text}</Text>
+      </View>
+    </View>
+  )
+}
 
 export class ScrollScreen extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+        isLoading: true,
+        messages: [],
+        inputText: '',
+        date: new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }),
+        ws: '',
+        IP: ''
+    }
 }
+
+
+ws = new ReconnectingWebSocket(URL)
+  componentDidMount() {
+
+    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ isLoading: false, messages: responseJson });
+        console.log(responseJson);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    NetworkInfo.getIPAddress().then(ipAddress => {
+      this.setState({ IP: ipAddress })
+    })
+
+    this.ws.onopen = () => {
+      console.log('connected')
+    }
+
+    this.ws.onmessage = evt => {
+      const message = JSON.parse(evt.data)
+      this.addMessage(message)
+      console.log(message)
+    }
+    this.ws.onclose = () => {
+      console.log('disconnected')
+      this.setState({
+        ws: new WebSocket(URL),
+      })
+    }
+
+  }
+  componentWillUnmount() {
+  }
+  addMessage = message =>
+    this.setState(state => ({ messages: [message, ...this.state.messages] }))
+
+  
 
   render() {
     return (
       <ImageBackground style={{ flex: 1, }}  >
         <KeyboardAwareScrollView style={{ width: '100%', height: '100%', marginTop: 10 }}>
-          <View style={{ width: 223, flex: 1, backgroundColor: '#FFFFFF', marginBottom: 2, borderBottomRightRadius: 20, borderTopRightRadius: 20, borderWidth: 1, borderColor: '#DCDCDC' }}>
-            <Text> User3             192.168.243.332</Text>
-          </View>
-          <View style={{ width: 223, flexDirection: 'row', flex: 1, backgroundColor: '#FFFFFF', borderTopRightRadius: 20, borderBottomRightRadius: 20, borderWidth: 1, borderColor: '#DCDCDC' }}>
-            <View style={{ flex: 3, justifyContent: 'flex-start' }}><Text style={{ marginLeft: 10, fontSize: 18, }}> Hi.</Text></View>
-            <View style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end' }}><Text> 12:24</Text></View>
-          </View>
-          <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }}>
-            <View style={{ width: 290 }}>
-              <Text style={{
-                paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
-              }}> Hi. I am Test</Text>
-              <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
-                <Text style={{ color: '#EDEDED', }}>6:30 PM</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{ flexDirection: 'row-reverse' }}>
-            <View style={{ width: 290, paddingTop: 5, paddingBottom: 5 }}>
-              <Text style={{
-                paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
-              }}> Lorem </Text>
-              <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
-                <Text style={{ color: '#EDEDED' }}>6:30 PM</Text>
-              </View>
-            </View>
-          </View>
+        
+        <FlatList
+                  inverted={true}
+                  data={this.state.messages}
+                  renderItem={({ item }) => <Item text={item.text} time={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })} />}
+                  keyExtractor={item=>item._id}
+                />
+
         </KeyboardAwareScrollView>
       </ImageBackground>
     )
