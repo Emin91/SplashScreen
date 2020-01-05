@@ -3,17 +3,17 @@ import {StyleSheet} from 'react-native'
 const styles = StyleSheet.create({
     mainView: {
         flex: 1,
-        backgroundColor: '#fc441b'
+        backgroundColor: '#F23A12'
     },
     sepView: {
         flex: 1, 
-        backgroundColor: '#fc441b', 
+        backgroundColor: '#F23A12', 
         justifyContent: 'flex-end', 
         alignItems: 'center',
     },
     headerView: {
         flex: 1,  
-        backgroundColor: '#fc441b', 
+        backgroundColor: '#F23A12', 
         justifyContent: 'flex-end', 
         alignItems: 'center',
     },

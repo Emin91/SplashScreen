@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import { View, Image, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Image, TouchableOpacity, ImageBackground, StatusBar, Button } from 'react-native'
 import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
 import { connect } from 'react-redux'
-import { chacgebg, changeColor } from '../action/action'
-
+import { chacgebg } from '../action/action'
 import Scrollist from './List'
 import Input from './Input'
 import DrawerMenu from './DrawerMenu'
-
 import styles from '../styles/HomeStyle'
 
 class App extends Component {
@@ -32,6 +30,7 @@ closeDrawer() {
   this.drawer.close()
 }
 
+
   render() {
     return (
       <Drawer
@@ -42,7 +41,8 @@ closeDrawer() {
         content={this.renderDrawer()}
         //open={true}
         side={'left'}>
-        <View style={{ flex: 1, }}>        
+        <View style={{ flex: 1, }}> 
+        <StatusBar backgroundColor="#F23A12" barStyle="light-content" />       
           <ImageBackground style={styles.container} source={this.props.result}>
             <View style={styles.container}>
             <Header

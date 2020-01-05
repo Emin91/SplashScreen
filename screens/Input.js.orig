@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> UI_finish
 import styles from '../styles/InputStyle'
 import PushNotification from "react-native-push-notification"
 
@@ -24,6 +27,7 @@ PushNotification.configure({
 });
 
 export default class App extends Component {
+<<<<<<< HEAD
 
   getNotification() {
     PushNotification.localNotification({
@@ -37,6 +41,9 @@ export default class App extends Component {
     })
   }
 
+=======
+  
+>>>>>>> UI_finish
   render() {
     
     return (
