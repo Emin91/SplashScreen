@@ -39,7 +39,6 @@ function reducer(state = initialState, action) {
         }
         
         else if (action.id == 1) {
-            ToastAndroid.show('Message background color is Orange', ToastAndroid.SHORT);
             back = '#FC441B'
             return {...state, back }
         }

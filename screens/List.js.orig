@@ -20,23 +20,39 @@ export class ScrollScreen extends Component {
             <View style={{ flex: 3, justifyContent: 'flex-start' }}><Text style={{ marginLeft: 10, fontSize: 18, }}> Hi.</Text></View>
             <View style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end' }}><Text> 12:24</Text></View>
           </View>
-          <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }}>
+<<<<<<< HEAD
+          <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 5}}>
             <View style={{ width: 290 }}>
+              <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
+=======
+          <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }}>
+            <View style={{ width: 290, }}>
               <Text style={{
                 paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
+>>>>>>> UI_finish
               }}> Hi. I am Test</Text>
               <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
                 <Text style={{ color: '#EDEDED', }}>6:30 PM</Text>
               </View>
             </View>
           </View>
-          <View style={{ flexDirection: 'row-reverse' }}>
+<<<<<<< HEAD
+          <View style={{ flexDirection: 'row-reverse',}}>
             <View style={{ width: 290, paddingTop: 5, paddingBottom: 5 }}>
+              <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
+              }}> <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
+            }}> Lorem </Text></Text>
+              <View style={{height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start'}}>
+              <Text style={{ color: '#EDEDED',}}>6:30 PM</Text>
+=======
+          <View style={{ flexDirection: 'row-reverse' }}>
+            <View style={{ width: 290, }}>
               <Text style={{
                 paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
               }}> Lorem </Text>
               <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
                 <Text style={{ color: '#EDEDED' }}>6:30 PM</Text>
+>>>>>>> UI_finish
               </View>
             </View>
           </View>

@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     mainView: {
-      height: 50,
+      height: 65,
       paddingLeft: 4, 
       paddingRight: 4, 
       paddingBottom: 2, 
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
       borderRadius: 40,
     },
     textInput: {
+      paddingEnd:'15%',
       paddingLeft: '8%', 
       borderColor: '#FC441B', 
       borderWidth: 1.8, 
