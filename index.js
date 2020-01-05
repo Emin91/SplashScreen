@@ -7,6 +7,7 @@ import {AppRegistry} from 'react-native';
 import {name as appName} from './app.json';
 import App from './App'
 import SplashScreen from './screens/SplashScreen'
+import LoginPage from './screens/LoginPage'
 //Save Redux state
 import AsyncStorage from '@react-native-community/async-storage'
 import {persistStore, persistReducer} from 'redux-persist'

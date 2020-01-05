@@ -42,7 +42,6 @@ export default class App extends Component {
           style={styles.textInput}
           placeholder='Type something...'
           selectionColor={'#FC441B'}
-          tex
         />
         <View style={styles.btnSendView}>
           <TouchableOpacity onPress={this.getNotification}>
