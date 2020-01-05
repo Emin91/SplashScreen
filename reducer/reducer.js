@@ -2,7 +2,6 @@ import {ToastAndroid} from 'react-native';
 
 export const initialState = {
     result: require('../src/assets/img/default.jpg'),
-
     back:'#FC441B'
 }
 

@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 
 export class ScrollScreen extends Component {
+  constructor(props) {
+    super(props)
+}
 
   render() {
     return (
@@ -18,7 +21,7 @@ export class ScrollScreen extends Component {
             <View style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end' }}><Text> 12:24</Text></View>
           </View>
           <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 5}}>
-            <View style={{ width: 290, backgroundColor: 'green' }}>
+            <View style={{ width: 290 }}>
               <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
               }}> Hi. I am Test</Text>
               <View style={{height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start'}}>
@@ -27,7 +30,7 @@ export class ScrollScreen extends Component {
             </View>
           </View>
           <View style={{ flexDirection: 'row-reverse',}}>
-            <View style={{ width: 290, backgroundColor: 'green', paddingTop: 5, paddingBottom: 5 }}>
+            <View style={{ width: 290, paddingTop: 5, paddingBottom: 5 }}>
               <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
               }}> <Text style={{paddingLeft: 10,paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF',fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
             }}> Lorem </Text></Text>

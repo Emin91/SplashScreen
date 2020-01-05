@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity, ImageBackground, StatusBar } from 'react
 import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
 import { connect } from 'react-redux'
-import { chacgebg, changeColor } from '../action/action'
+import { chacgebg } from '../action/action'
 
 import Scrollist from './List'
 import Input from './Input'
