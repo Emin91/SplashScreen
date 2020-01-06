@@ -48,19 +48,17 @@ export class ScrollScreen extends Component {
 
     }
   }
-  Item = ({ msg, date, IP }) => {
-    const message = msg
-    const times = date
-    const name = IP
+  Item = ({ outputMes, timeMes }) => {
+
     return (
       <View style={{ flex: 1, paddingTop: 5, paddingBottom: 4, backgroundColor: this.props.back, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
         <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, }} >
           <Text style={{
             flex: 0.6, paddingLeft: 10, paddingRight: 10, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: 'black', fontFamily: 'CircularStd-Book'
-          }}>{message}</Text>
-          <Text style={{
+          }}>{outputMes}</Text>
+          <Text  style={{
             flex: 0.3, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 15, color: 'black', fontFamily: 'CircularStd-Book'
-          }} >{times} {name}</Text>
+          }} >{timeMes} </Text>
         </View>
       </View>
     )
@@ -72,26 +70,30 @@ export class ScrollScreen extends Component {
 
   ws = new ReconnectingWebSocket(URL)
   componentDidMount() {
+
     fetch('http://smart-chat.eu-4.evennode.com/all-msg', {
       method: 'GET',
     })
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ isLoading: false, messages: responseJson});
+        this.setState({ isLoading: false, messages: responseJson });
+        console.log(responseJson);
       })
       .catch(error => {
         console.error(error);
       });
+
     NetworkInfo.getIPAddress().then(ipAddress => {
       this.setState({ IP: ipAddress })
     })
+
     this.ws.onopen = () => {
       console.log('connected')
     }
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
-      console.log(message)
+      console.log(message.msg)
     }
     this.ws.onclose = () => {
       console.log('disconnected')
@@ -99,7 +101,6 @@ export class ScrollScreen extends Component {
         ws: new WebSocket(URL),
       })
     }
-
   }
 
   getNotification() {
@@ -114,13 +115,14 @@ export class ScrollScreen extends Component {
     })
   }
   render() {
+    
     return (
       <ImageBackground style={{ flex: 1, }}  >
         <KeyboardAwareScrollView style={{ width: '100%', height: '100%', marginTop: 10 }}>
           <FlatList
             inverted={true}
-            data={this.state.messages}
-            renderItem={({ item }) => <this.Item msg={item.message} date={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2:digit', minute: '2:digit' })} IP={item.IP} />}
+            data={this.state.messages.msg}
+            renderItem={({ item }) => <this.Item outputMes={item.msg} timeMes={item.date }/>}
             keyExtractor={item => item._id}
           />
         </KeyboardAwareScrollView>
@@ -142,28 +144,3 @@ function mapDispatchToProps(dispatch) {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollScreen)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // < View style = {{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }}>
-  //   <View style={{ width: 290 }}>
-  //     <Text style={{
-  //       paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
-  //     }}> Hi. I am Test</Text>
-  //     <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
-  //       <Text style={{ color: '#EDEDED', }}>6:30 PM</Text>
-  //     </View>
-  //   </View>

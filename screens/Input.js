@@ -4,7 +4,7 @@ import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { NetworkInfo } from 'react-native-network-info';
 import styles from '../styles/InputStyle'
 
-const URL = 'ws://one-chat.eu-4.evennode.com/'
+const URL = 'ws://smart-chat.eu-4.evennode.com/'
 
 
 export default class App extends Component {
