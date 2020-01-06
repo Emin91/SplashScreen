@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     mainView: {
-      height: 65,
+      height: 50,
       paddingLeft: 4, 
       paddingRight: 4, 
       paddingBottom: 2, 
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
       borderColor: '#FC441B', 
       borderWidth: 1.8, 
       fontSize: 18, 
-      borderRadius: 66, 
+      borderRadius: 30, 
       fontFamily: 'CircularStd-Book', 
       backgroundColor: '#fff'
     },

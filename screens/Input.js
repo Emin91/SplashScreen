@@ -1,58 +1,79 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
-
-
+import { View, TextInput, TouchableOpacity, Image, ToastAndroid, } from 'react-native'
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
+import { NetworkInfo } from 'react-native-network-info';
 import styles from '../styles/InputStyle'
-import PushNotification from "react-native-push-notification"
 
-PushNotification.configure({
-  onRegister: function(token) {
-    console.log("TOKEN:", token);
-  },
-  onNotification: function(notification) {
-    console.log("NOTIFICATION:", notification);
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
-  },
-  senderID: "468408451342",
-   permissions: {
-    alert: true,
-    badge: true,
-    sound: true
-  },
-  popInitialNotification: true,
-  requestPermissions: true
-});
+const URL = 'ws://one-chat.eu-4.evennode.com/'
+
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      messages: [],
+      inputText: '',
+      date: new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }),
+      ws: '',
+      IP: '',
+    }
+  }
+  ws = new ReconnectingWebSocket(URL)
 
-  getNotification() {
-    PushNotification.localNotification({
-      title: "Orange Chat",
-      message: "Your message is sended",
-  });
-    PushNotification.configure({
-      onNotification: function(notification) {
-        console.log('Notification is clicked')
-      }
-    })
+  addMessage = message =>
+    this.setState(state => ({ messages: [message, ...this.state.messages] }))
+
+  submitMessage() {
+    if (this.state.inputText !== "") {
+      this.ws.send(JSON.stringify({
+        text: this.state.inputText,
+        time: this.state.data,
+        ip: this.state.IP,
+        name: this.state.IP
+      }))
+      this.setState({ inputText: '' })
+
+      fetch("http://one-chat.eu-4.evennode.com/putmessage", {
+        method: "put",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+
+        body: JSON.stringify({
+          text: this.state.inputText,
+          time: this.state.date,
+          ip: this.state.IP,
+          name: this.state.IP
+        })
+      })
+        .then((response) => {
+          console.log(response)
+        })
+    } else {
+      ToastAndroid.show('Need type some message!', ToastAndroid.SHORT);
+    }
   }
 
+
   render() {
-    
+
     return (
       <View style={styles.mainView}>
         <View >
           <TextInput
             style={styles.textInput}
-            multiline
             numberOfLines={2}
-            placeholder='Type something...' 
+            placeholder='Type something...'
             selectionColor={'#FC441B'}
-            tex
+            onChangeText={inputText => this.setState({ inputText })}
+            value={this.state.inputText}
+            maxLength={200}
           />
         </View>
         <View style={styles.btnSendView}>
-          <TouchableOpacity onPress={this.getNotification}>
+          <TouchableOpacity onPress={this.submitMessage.bind(this)}>
             <Image
               style={{ width: 38, height: 32 }}
               source={require('../src/assets/img/Send.png')}
@@ -62,5 +83,5 @@ export default class App extends Component {
       </View>
     )
   }
-}
 
+}
