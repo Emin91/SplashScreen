@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
+import { View, TextInput, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native'
 
 
 import styles from '../styles/InputStyle'
@@ -10,6 +10,7 @@ export default class App extends Component {
   render() {
 
     return (
+      <KeyboardAvoidingView  behavior='padding' keyboardVerticalOffset={20} enabled>
       <View style={styles.mainView}>
         
           <TextInput
@@ -28,6 +29,7 @@ export default class App extends Component {
           </TouchableOpacity>
         </View>
       </View>
+      </KeyboardAvoidingView>
     )
   }
 }

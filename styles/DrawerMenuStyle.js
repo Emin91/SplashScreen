@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
         fontFamily: 'CircularStd-Book',
     },
     textInputStyle: {
-        paddingLeft: '8%', 
+        width: '87%',
+        height: 34,
         backgroundColor: 'white', 
         borderColor: '#F23A12', 
         borderWidth: 1.8, 
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
         fontFamily: 'CircularStd-Book',
         position: 'absolute',
         zIndex: 10000,
+        paddingLeft: 10,
     },
     inputSendBtn: {
         width: '100%', 

@@ -11,9 +11,11 @@ const styles = StyleSheet.create({
       borderRadius: 40,
     },
     textInput: {
+      width: '87%',
       height: 40,
-      paddingEnd:'15%',
-      paddingLeft: '8%', 
+      paddingEnd:'8%',
+      paddingLeft: '8%',
+      marginLeft: '1%', 
       borderColor: '#FC441B', 
       borderWidth: 1.8, 
       fontSize: 18, 

@@ -15,7 +15,7 @@ export class DrawerMenu extends Component {
     }
     render() {
         return (
-            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F23A12', }} behavior='padding' keyboardVerticalOffset={-255} enabled>
+            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F23A12', }} behavior='padding' keyboardVerticalOffset={-10} enabled>
                 <ScrollView style={{ flex: 1 }}>
                     <View style={styles.container}>
                         <View style={styles.logoView}>
@@ -161,7 +161,7 @@ export class DrawerMenu extends Component {
                         <View style={styles.changeUserNameView}>
                             <Text style={styles.changeUserNameText}>{this.state.changeUserNameText}</Text>
                         </View>
-                        <View style={{ paddingLeft: 5, paddingRight: 5 }}>
+                        <View style={{ paddingLeft: 5, }}>
                             <TextInput
                                 style={styles.textInputStyle}
                                 placeholder='Type something...'
@@ -169,13 +169,10 @@ export class DrawerMenu extends Component {
                             <View style={styles.inputSendBtn}>
                                 <TouchableOpacity>
                                     <Image
-                                        style={{ width: 40, height: 34 }}
+                                        style={{ width: 40, height: 34, position: 'absolute', left: -35, }}
                                         source={require('../src/assets/img/Save.png')}
                                     />
                                 </TouchableOpacity>
-                                <TextInput
-                                    placeholder='Type something...'
-                                />
                             </View>
                         </View>
                     </View>
