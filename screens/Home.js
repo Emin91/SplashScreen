@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, TouchableOpacity, ImageBackground, StatusBar, Button } from 'react-native'
+import { View, Image, TouchableOpacity, ImageBackground, StatusBar, } from 'react-native'
 import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
 import { connect } from 'react-redux'
@@ -29,7 +29,6 @@ openDrawer() {
 closeDrawer() {
   this.drawer.close()
 }
-
 
   render() {
     return (
