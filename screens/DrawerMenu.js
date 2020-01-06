@@ -11,8 +11,15 @@ export class DrawerMenu extends Component {
             colorTitle: "Message background",
             backgroundTitle: "Backgrounds",
             changeUserNameText: "Change user name:",
+           
         }
     }
+
+    submitMessage(inputName) {
+         
+        return this.setState(inputName)
+        }
+    
     render() {
         return (
             <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F23A12', }} behavior='padding' keyboardVerticalOffset={-255} enabled>
@@ -163,11 +170,12 @@ export class DrawerMenu extends Component {
                         </View>
                         <View style={{paddingLeft: 5, paddingRight: 5}}>
                             <TextInput
+                                onChangeText={inputName => this.submitMessage({ inputName })}
                                 style={styles.textInputStyle}
                                 placeholder='Type something...'
                             />
                             <View style={styles.inputSendBtn}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.props.number(id = this.state.inputName)}>
                                     <Image
                                         style={{width: 40, height: 34 }}
                                         source={require('../src/assets/img/Save.png')}
@@ -186,12 +194,14 @@ function mapStateToProps(state) {
     return {
         result: state.result,
         back: state.back,
+        username: state.username
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         number: (id) => dispatch(chacgebg(id)),
+       
     }
 }
 

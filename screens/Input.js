@@ -3,11 +3,12 @@ import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
 import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { NetworkInfo } from 'react-native-network-info';
 import styles from '../styles/InputStyle'
-
+import { connect } from 'react-redux'
+import { chacgebg } from '../action/action'
 const URL = 'ws://one-chat.eu-4.evennode.com/'
 
 
-export default class App extends Component {
+export class ChatInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +23,11 @@ export default class App extends Component {
   ws = new ReconnectingWebSocket(URL)
   componentWillUnmount() {
   }
+  componentDidMount(){
+    NetworkInfo.getIPAddress().then(ipAddress => {
+      this.setState({ IP: ipAddress })
+    })
+  }
 
   addMessage = message =>
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
@@ -29,24 +35,25 @@ export default class App extends Component {
   submitMessage() {
     if (this.state.inputText !== "") {
       this.ws.send(JSON.stringify({
-        msg: this.state.inputText,
-        date: this.state.data,
-        IP: this.state.IP,
-        nickName: this.state.IP
+        text: this.state.inputText,
+        time: this.state.data,
+        ip: this.state.IP,
+        name: this.props.username
       }))
       this.setState({ inputText: '' })
 
-      fetch("http://smart-chat.eu-4.evennode.com/sendMsg", {
+      fetch("http://one-chat.eu-4.evennode.com/sendMsg", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: JSON.stringify({
-          msg: this.state.inputText,
-          date: this.state.date,
-          IP: this.state.IP,
-          nickName: this.state.IP
+          text: this.state.inputText,
+          time: this.state.date,
+          ip: this.state.IP,
+          name: this.props.username
+
         })
       })
         .then((response) => {
@@ -85,3 +92,21 @@ export default class App extends Component {
   }
 
 }
+function mapStateToProps(state) {
+    return {
+        result: state.result,
+        back: state.back,
+        username: state.username
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        number: (id) => dispatch(chacgebg(id)),
+       
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatInput)
+
+

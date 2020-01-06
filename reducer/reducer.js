@@ -2,7 +2,8 @@ import {ToastAndroid} from 'react-native';
 
 export const initialState = {
     result: require('../src/assets/img/default.jpg'),
-    back:'#FC441B'
+    back:'#FC441B',
+    username: 'User'
 }
 
 function reducer(state = initialState, action) {
@@ -71,6 +72,12 @@ function reducer(state = initialState, action) {
     
    
     
+        else if (action.id !== ''){
+            username= action.id
+            
+            return  { ...state,username }
+        }
+
     return state
 }
 

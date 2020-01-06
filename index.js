@@ -36,7 +36,7 @@ export default class Main extends Component {
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['result', 'back']
+    whitelist: ['result', 'back','username']
   }
     
   const persistedReducer = persistReducer(persistConfig, rootReducer)

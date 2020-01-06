@@ -31,7 +31,7 @@ PushNotification.configure({
 
 
 const screenWidth = Math.round(Dimensions.get('window').width);
-const URL = 'ws://smart-chat.eu-4.evennode.com/'
+const URL = 'ws://one-chat.eu-4.evennode.com/'
 
 
 export class ScrollScreen extends Component {
@@ -48,19 +48,17 @@ export class ScrollScreen extends Component {
 
     }
   }
-  Item = ({ msg, date, IP }) => {
-    const message = msg
-    const times = date
-    const name = IP
+  Item = ({ text, time, ip, name }) => {
+    
     return (
       <View style={{ flex: 1, paddingTop: 5, paddingBottom: 4, backgroundColor: this.props.back, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
         <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, }} >
           <Text style={{
             flex: 0.6, paddingLeft: 10, paddingRight: 10, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: 'black', fontFamily: 'CircularStd-Book'
-          }}>{message}</Text>
+          }}>{text}</Text>
           <Text style={{
             flex: 0.3, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 15, color: 'black', fontFamily: 'CircularStd-Book'
-          }} >{times} {name}</Text>
+  }} >{time} {ip} {name}</Text>
         </View>
       </View>
     )
@@ -72,22 +70,27 @@ export class ScrollScreen extends Component {
 
   ws = new ReconnectingWebSocket(URL)
   componentDidMount() {
-    fetch('http://smart-chat.eu-4.evennode.com/all-msg', {
-      method: 'GET',
+
+    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
+      method: 'get',
     })
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ isLoading: false, messages: responseJson});
+        this.setState({ isLoading: false, messages: responseJson.reverse() });
+        console.log(responseJson);
       })
       .catch(error => {
         console.error(error);
       });
+
     NetworkInfo.getIPAddress().then(ipAddress => {
       this.setState({ IP: ipAddress })
     })
+
     this.ws.onopen = () => {
       console.log('connected')
     }
+
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
@@ -120,7 +123,7 @@ export class ScrollScreen extends Component {
           <FlatList
             inverted={true}
             data={this.state.messages}
-            renderItem={({ item }) => <this.Item msg={item.message} date={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2:digit', minute: '2:digit' })} IP={item.IP} />}
+            renderItem={({ item }) => <this.Item text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString(navigator.language, {hour: '2-digit', minute: '2-digit'})} />}
             keyExtractor={item => item._id}
           />
         </KeyboardAwareScrollView>
