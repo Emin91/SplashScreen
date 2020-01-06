@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, TouchableOpacity, ImageBackground, StatusBar, Button } from 'react-native'
+import { View, Image, TouchableOpacity, ImageBackground, StatusBar } from 'react-native'
 import Drawer from 'react-native-drawer'
 import {Header} from 'react-native-elements'
 import { connect } from 'react-redux'
@@ -54,8 +54,12 @@ closeDrawer() {
                             color: '#fff',
                             fontFamily: 'Bukhari Script',
                             fontSize: 40,
+                            lineHeight: 60,
                             width: 135,
-                            marginBottom: 10
+                            position: 'absolute',
+                            top: -50,
+                            zIndex: 50000,
+                    
                         }
                     }}
                 />

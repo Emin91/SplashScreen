@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     mainView: {
-      height: 65,
+      height: 100,
       paddingLeft: 4, 
       paddingRight: 4, 
       paddingBottom: 2, 
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
       borderRadius: 40,
     },
     textInput: {
+      height: 40,
       paddingEnd:'15%',
       paddingLeft: '8%', 
       borderColor: '#FC441B', 
@@ -18,7 +19,9 @@ const styles = StyleSheet.create({
       fontSize: 18, 
       borderRadius: 66, 
       fontFamily: 'CircularStd-Book', 
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
+      position: 'absolute',
+      zIndex: 1000,
     },
     btnSendView: {
       width: '100%', 

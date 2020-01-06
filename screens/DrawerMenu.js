@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { chacgebg, changeColor } from '../action/action'
+import { chacgebg, } from '../action/action'
 import styles from '../styles/DrawerMenuStyle'
 
 export class DrawerMenu extends Component {
@@ -86,38 +86,38 @@ export class DrawerMenu extends Component {
                                         </Text>
                                     </View>
                                 </View>
-                                <View style={{ flexDirection: 'column',paddingBottom: 10 }}>
+                                <View style={{ flexDirection: 'column', paddingBottom: 10 }}>
                                     <View style={styles.imgLineOne}>
                                         <View style={{ flex: 0.05 }}></View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={styles.backgroundBtn}
                                                 onPress={() => this.props.number(id = "7")}>
-                                                    <ImageBackground 
-                                                    source={require('../src/assets/img/bg1.png')} 
+                                                <ImageBackground
+                                                    source={require('../src/assets/img/bg1.png')}
                                                     style={styles.imgStyle}
-                                                    imageStyle={{borderRadius: 8}} />
-                                                </TouchableOpacity>
+                                                    imageStyle={{ borderRadius: 8 }} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={styles.backgroundBtn}
                                                 onPress={() => this.props.number(id = "8")}>
-                                                    <ImageBackground 
-                                                    source={require('../src/assets/img/bg2.png')} 
+                                                <ImageBackground
+                                                    source={require('../src/assets/img/bg2.png')}
                                                     style={styles.imgStyle}
-                                                    imageStyle={{borderRadius: 8}} />
-                                                </TouchableOpacity>
+                                                    imageStyle={{ borderRadius: 8 }} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={styles.backgroundBtn}
                                                 onPress={() => this.props.number(id = "9")}>
-                                                    <ImageBackground 
-                                                    source={require('../src/assets/img/bg3.png')} 
+                                                <ImageBackground
+                                                    source={require('../src/assets/img/bg3.png')}
                                                     style={styles.imgStyle}
-                                                    imageStyle={{borderRadius: 8}} />
-                                                </TouchableOpacity>
+                                                    imageStyle={{ borderRadius: 8 }} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={{ flex: 0.05 }}></View>
                                     </View>
@@ -127,31 +127,31 @@ export class DrawerMenu extends Component {
                                             <TouchableOpacity
                                                 style={styles.backgroundBtn}
                                                 onPress={() => this.props.number(id = "10")}>
-                                                    <ImageBackground 
-                                                    source={require('../src/assets/img/bg4.png')} 
+                                                <ImageBackground
+                                                    source={require('../src/assets/img/bg4.png')}
                                                     style={styles.imgStyle}
-                                                    imageStyle={{borderRadius: 8}} />
-                                                </TouchableOpacity>
+                                                    imageStyle={{ borderRadius: 8 }} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={styles.backgroundBtn}
                                                 onPress={() => this.props.number(id = "11")}>
-                                                    <ImageBackground 
-                                                    source={require('../src/assets/img/bg5.png')} 
+                                                <ImageBackground
+                                                    source={require('../src/assets/img/bg5.png')}
                                                     style={styles.imgStyle}
-                                                    imageStyle={{borderRadius: 8}} />
-                                                </TouchableOpacity>
+                                                    imageStyle={{ borderRadius: 8 }} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={styles.backgroundBtn}
                                                 onPress={() => this.props.number(id = "12")}>
-                                                    <ImageBackground 
-                                                    source={require('../src/assets/img/default.jpg')} 
+                                                <ImageBackground
+                                                    source={require('../src/assets/img/default.jpg')}
                                                     style={styles.imgStyle}
-                                                    imageStyle={{borderRadius: 8}} />
-                                                </TouchableOpacity>
+                                                    imageStyle={{ borderRadius: 8 }} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={{ flex: 0.05 }}></View>
                                     </View>
@@ -161,7 +161,7 @@ export class DrawerMenu extends Component {
                         <View style={styles.changeUserNameView}>
                             <Text style={styles.changeUserNameText}>{this.state.changeUserNameText}</Text>
                         </View>
-                        <View style={{paddingLeft: 5, paddingRight: 5}}>
+                        <View style={{ paddingLeft: 5, paddingRight: 5 }}>
                             <TextInput
                                 style={styles.textInputStyle}
                                 placeholder='Type something...'
@@ -169,10 +169,13 @@ export class DrawerMenu extends Component {
                             <View style={styles.inputSendBtn}>
                                 <TouchableOpacity>
                                     <Image
-                                        style={{width: 40, height: 34 }}
+                                        style={{ width: 40, height: 34 }}
                                         source={require('../src/assets/img/Save.png')}
                                     />
                                 </TouchableOpacity>
+                                <TextInput
+                                    placeholder='Type something...'
+                                />
                             </View>
                         </View>
                     </View>

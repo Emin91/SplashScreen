@@ -74,7 +74,9 @@ const styles = StyleSheet.create({
         borderWidth: 1.8, 
         fontSize: 18, 
         borderRadius: 66, 
-        fontFamily: 'CircularStd-Book'
+        fontFamily: 'CircularStd-Book',
+        position: 'absolute',
+        zIndex: 10000,
     },
     inputSendBtn: {
         width: '100%', 
