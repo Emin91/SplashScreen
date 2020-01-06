@@ -1,36 +1,75 @@
+import styles from '../Styles/Styles';
 import React, { Component } from 'react';
-import {  SafeAreaView,  View,  Image,  Text,  TouchableOpacity,  TextInput,  FlatList,} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+} from 'react-native';
+import MyMessage from '../Components/MyMessage';
+import UserMessage from '../Components/UserMessage';
 import { NetworkInfo } from 'react-native-network-info';
 import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
-//Flatlist item
+
+
 const URL = 'ws://smart-chat.eu-4.evennode.com/'
+
+//Flatlist item
 Item = ({ msg, date, IP }) => {
   return (
-    <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }} >
-      <Text style={{
-        paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
-      }} >{date}</Text>
-      <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }} >
-        <Text style={{
-        paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
-      }}>{msg}</Text>
+    <View style={styles.userMessageRow}>
+      <Text style={styles.userTimeText}>{date}</Text>
+      <View style={styles.userMessageContainer}>
+        <Text style={styles.userMessageText}>{msg}</Text>
       </View>
     </View>
   )
 }
-
+//Flatlist item
 export default class ChatScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: true,
-            messages: [],
-            inputText: '',
-            date: new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }),
-            ws: '',
-            IP: ''
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      messages: [],
+      inputText: '',
+      date: new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }),
+      ws: '',
+      IP: ''
     }
+
+
+  }
+  /*
+    componentDidMount() {
+      fetch('http://smart-chat.eu-4.evennode.com/all-msg ', {
+        method: 'GET',
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          this.setState({isLoading: false, messages: responseJson});
+          console.log(responseJson);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  
+  
+  
+  
+  
+    submitMessage() {
+  
+      this.setState({inputText: ''});
+    }
+  
+    
+  */
   ws = new ReconnectingWebSocket(URL)
   componentDidMount() {
 
@@ -69,16 +108,20 @@ export default class ChatScreen extends Component {
   }
   componentWillUnmount() {
   }
+
+
+
+
   addMessage = message =>
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
 
-  submitMessage() {
+   submitMessage() {
     if (this.state.inputText !== "") {
       this.ws.send(JSON.stringify({
-        msg: this.state.inputText,
-        date: this.state.data,
-        IP: this.state.IP,
-        mobileNickName: this.state.IP
+        text: this.state.inputText,
+        time: this.state.data,
+        ip: this.state.IP,
+        name: this.state.IP
       }))
       this.setState({ inputText: '' })
     
@@ -99,15 +142,24 @@ export default class ChatScreen extends Component {
       .then((response) => {
         console.log(response)
       })
+
+
+
+
     }
+
   }
+
+
+
+
   render() {
     return (
-      <SafeAreaView >
-        <View >
-          <View >
-            <View >
-              <View >
+      <SafeAreaView style={styles.chatScreenContainer}>
+        <View style={styles.chatScreenContainer}>
+          <View style={styles.messagesMainContainer}>
+            <View style={styles.dinamicMessagesField}>
+              <View style={styles.innerMessagesField}>
 
                 <FlatList
                   inverted={true}
@@ -120,10 +172,10 @@ export default class ChatScreen extends Component {
               </View>
             </View>
           </View>
-          <View >
+          <View style={styles.messagesInputContainer}>
             <TextInput
               placeholder="Введите сообщение..."
-              backgroundColor='black'
+              style={styles.messagesInput}
               multiline={true}
               numberOfLines={4}
               placeholderTextColor="#000000"
@@ -132,9 +184,12 @@ export default class ChatScreen extends Component {
               maxLength={400}
             />
             <TouchableOpacity
-            
+              style={styles.paperPlaneContainer}
               onPress={this.submitMessage.bind(this)}>
-            
+              <Image
+                source={require('../images/paper-plane.png')}
+                style={styles.paperPlaneButton}
+              />
             </TouchableOpacity>
           </View>
         </View>

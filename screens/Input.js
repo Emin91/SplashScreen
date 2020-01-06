@@ -1,44 +1,62 @@
 import React, { Component } from 'react'
 import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
-
-
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
+import { NetworkInfo } from 'react-native-network-info';
 import styles from '../styles/InputStyle'
-import PushNotification from "react-native-push-notification"
 
-PushNotification.configure({
-  onRegister: function(token) {
-    console.log("TOKEN:", token);
-  },
-  onNotification: function(notification) {
-    console.log("NOTIFICATION:", notification);
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
-  },
-  senderID: "468408451342",
-   permissions: {
-    alert: true,
-    badge: true,
-    sound: true
-  },
-  popInitialNotification: true,
-  requestPermissions: true
-});
+const URL = 'ws://one-chat.eu-4.evennode.com/'
+
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      messages: [],
+      inputText: '',
+      date: new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }),
+      ws: '',
+      IP: ''
+    }
+  }
+  ws = new ReconnectingWebSocket(URL)
+  componentWillUnmount() {
+  }
 
-  getNotification() {
-    PushNotification.localNotification({
-      title: "Orange Chat",
-      message: "Your message is sended",
-  });
-    PushNotification.configure({
-      onNotification: function(notification) {
-        console.log('Notification is clicked')
-      }
-    })
+  addMessage = message =>
+    this.setState(state => ({ messages: [message, ...this.state.messages] }))
+
+  submitMessage() {
+    if (this.state.inputText !== "") {
+      this.ws.send(JSON.stringify({
+        msg: this.state.inputText,
+        date: this.state.data,
+        IP: this.state.IP,
+        nickName: this.state.IP
+      }))
+      this.setState({ inputText: '' })
+
+      fetch("http://smart-chat.eu-4.evennode.com/sendMsg", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+          msg: this.state.inputText,
+          date: this.state.date,
+          IP: this.state.IP,
+          nickName: this.state.IP
+        })
+      })
+        .then((response) => {
+          console.log(response)
+        })
+    }
   }
 
   render() {
-    
+
     return (
       <View style={styles.mainView}>
         <View >
@@ -46,13 +64,16 @@ export default class App extends Component {
             style={styles.textInput}
             multiline
             numberOfLines={2}
-            placeholder='Type something...' 
+            placeholder='Type something...'
             selectionColor={'#FC441B'}
+            onChangeText={inputText => this.setState({ inputText })}
+            value={this.state.inputText}
+            maxLength={400}
             tex
           />
         </View>
         <View style={styles.btnSendView}>
-          <TouchableOpacity onPress={this.getNotification}>
+          <TouchableOpacity onPress={this.submitMessage.bind(this)}>
             <Image
               style={{ width: 38, height: 32 }}
               source={require('../src/assets/img/Send.png')}
@@ -62,5 +83,5 @@ export default class App extends Component {
       </View>
     )
   }
-}
 
+}

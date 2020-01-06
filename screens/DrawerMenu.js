@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { chacgebg, changeColor } from '../action/action'
+import { chacgebg } from '../action/action'
 import styles from '../styles/DrawerMenuStyle'
 
 export class DrawerMenu extends Component {
