@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     text: {
         flex: 0.7,
-        fontSize: 24, 
+        fontSize: 22, 
         color: '#fff', 
         paddingLeft: 15, 
         fontFamily: 'CircularStd-Book',
