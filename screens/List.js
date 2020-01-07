@@ -10,10 +10,10 @@ import PushNotification from "react-native-push-notification"
 
 PushNotification.configure({
   onRegister: function (token) {
-    console.log("TOKEN:", token);
+    //console.log("TOKEN:", token);
   },
   onNotification: function (notification) {
-    console.log("NOTIFICATION:", notification);
+    console.log("NOTIFICATION text here is:", notification);
     notification.finish(PushNotificationIOS.FetchResult.NoData);
   },
   senderID: "468408451342",
@@ -26,12 +26,8 @@ PushNotification.configure({
   requestPermissions: true
 });
 
-
-
-
 const screenWidth = Math.round(Dimensions.get('window').width);
 const URL = 'ws://one-chat.eu-4.evennode.com/'
-
 
 export class ScrollScreen extends Component {
   constructor(props) {
@@ -44,28 +40,21 @@ export class ScrollScreen extends Component {
       ws: '',
       name: '',
       IP: '',
-
     }
   }
 
-
-
-
   OurMess = ({ text, time, ip, name }) => {
-
     return (
-
-      <View style={{ flex: 1, marginRight: '30%', marginTop: 5, marginBottom: 3, backgroundColor: this.props.back, width: screenWidth / 1.5 }} >
-        <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, }} >
-          <Text style={{
-            flex: 0.6, paddingLeft: 10, paddingRight: 10, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: 'black', fontFamily: 'CircularStd-Book'
-          }}>{text}</Text>
-          <Text style={{
-            flex: 0.3, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 15, color: 'black', fontFamily: 'CircularStd-Book'
-          }} >{time} {ip} {name}</Text>
+      <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
+          <View style={{ flex: 1, paddingLeft: 100 }}>
+            <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
+              <Text style={{ fontSize: 20, color: '#fff', fontFamily: 'CircularStd-Book', }}>{text}</Text>
+            </View>
+          </View>
+          <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
+            <Text style={{ color: '#636e72' }}>{time}</Text>
+          </View>
         </View>
-      </View>
-
     )
   }
 
@@ -76,7 +65,7 @@ export class ScrollScreen extends Component {
     });
     PushNotification.configure({
       onNotification: function (notification) {
-        console.log('Notification is clicked')
+        //console.log('Notification is clicked')
       }
     })
   }
@@ -93,10 +82,10 @@ export class ScrollScreen extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ isLoading: false, messages: responseJson.reverse() });
-        console.log(responseJson);
+        //console.log(responseJson);
       })
       .catch(error => {
-        console.error(error);
+        //console.error(error);
       });
 
     NetworkInfo.getIPAddress().then(ipAddress => {
@@ -104,14 +93,14 @@ export class ScrollScreen extends Component {
     })
 
     this.ws.onopen = () => {
-      console.log('connected')
+      //console.log('connected')
     }
 
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
       this.getNotification(message.name, message.text)
-      console.log(message)
+      //console.log(message)
     }
     this.ws.onclose = () => {
       console.log('disconnected')
@@ -123,8 +112,7 @@ export class ScrollScreen extends Component {
 
   render() {
     return (
-      <ImageBackground style={{ flex: 1, }}  >
-
+      <ImageBackground style={{ flex: 1, }} >
         <FlatList
           inverted={true}
           data={this.state.messages}

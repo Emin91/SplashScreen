@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     mainView: {
-      height: 65,
+      height: 50,
       paddingLeft: 4, 
       paddingRight: 4, 
       paddingBottom: 2, 

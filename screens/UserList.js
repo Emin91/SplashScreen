@@ -16,16 +16,24 @@ class UserList extends Component {
         }
     }
 
-    Item = ({ user, state, ip }) => {
+
+    offlineUsers = ({ name }) => {
 
         return (
-            <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, backgroundColor: this.props.back, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
-                <View style={styles.greenDot} />
-                <Text style={styles.text}>{user}</Text>
+            <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
+                <View style={styles.redDot} />
+                <Text style={styles.text}>{name}</Text>
             </View>
         )
     }
-
+    onlineUsers = ({ name }) => {
+        return (
+            <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
+                <View style={styles.greenDot} />
+                <Text style={styles.text}>{name}</Text>
+            </View>
+        )
+    }
 
     ws = new ReconnectingWebSocket(URL)
     componentDidMount() {
@@ -57,7 +65,13 @@ class UserList extends Component {
                     <FlatList
                         inverted={true}
                         data={this.state.messages}
-                        renderItem={({ item }) => <this.Item user={item.name} state={item.state} ip={item.ip} />}
+                        renderItem={({ item }) => {
+                            if (item.state == true) {
+                                return (<this.onlineUsers name={item.name
+                                } />)
+                            }
+                        }
+                        }
                         keyExtractor={item => item._id}
                     />
                 </View>
@@ -68,36 +82,18 @@ class UserList extends Component {
                     </Text>
                 </View>
                 <View style={styles.onlineUsers}>
-                    <ScrollView>
-                        <View style={styles.textView}>
-                            <View style={styles.redDot} />
-                            <Text style={styles.text}>(1) User</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <View style={styles.redDot} />
-                            <Text style={styles.text}>(1) User</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <View style={styles.redDot} />
-                            <Text style={styles.text}>(1) User</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <View style={styles.redDot} />
-                            <Text style={styles.text}>(1) User</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <View style={styles.redDot} />
-                            <Text style={styles.text}>(1) User</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <View style={styles.redDot} />
-                            <Text style={styles.text}>(1) User</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <View style={styles.redDot} />
-                            <Text style={styles.text}>(1) User</Text>
-                        </View>
-                    </ScrollView>
+                    <FlatList
+                        inverted={true}
+                        data={this.state.messages}
+                        renderItem={({ item }) => {
+                            if (item.state !== true) {
+                                return (<this.offlineUsers name={item.name
+                                } />)
+                            }
+                        }
+                        }
+                        keyExtractor={item => item._id}
+                    />
                 </View>
                 <View style={{ flex: 2 }} />
             </View>
@@ -107,4 +103,3 @@ class UserList extends Component {
 
 
 export default UserList
-
