@@ -42,8 +42,8 @@ export class ChatInput extends Component {
       }))
       this.setState({ inputText: '' })
 
-      fetch("http://one-chat.eu-4.evennode.com/sendMsg", {
-        method: "POST",
+      fetch("http://one-chat.eu-4.evennode.com/putmessage", {
+        method: "put",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json;charset=UTF-8'

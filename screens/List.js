@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Text, ImageBackground, View, FlatList } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
 import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { Dimensions } from "react-native";
-
+import UserMessage from './UserMessage'
 import PushNotification from "react-native-push-notification"
 
 PushNotification.configure({
@@ -48,22 +47,39 @@ export class ScrollScreen extends Component {
 
     }
   }
-  Item = ({ text, time, ip, name }) => {
-    
+
+
+
+
+  OurMess = ({ text, time, ip, name }) => {
+
     return (
-      <View style={{ flex: 1, paddingTop: 5, paddingBottom: 4, backgroundColor: this.props.back, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
+
+      <View style={{ flex: 1, marginRight: '30%', marginTop: 5, marginBottom: 3, backgroundColor: this.props.back, width: screenWidth / 1.5 }} >
         <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, }} >
           <Text style={{
             flex: 0.6, paddingLeft: 10, paddingRight: 10, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: 'black', fontFamily: 'CircularStd-Book'
           }}>{text}</Text>
           <Text style={{
             flex: 0.3, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 15, color: 'black', fontFamily: 'CircularStd-Book'
-  }} >{time} {ip} {name}</Text>
+          }} >{time} {ip} {name}</Text>
         </View>
       </View>
+
     )
   }
 
+  getNotification(text, name) {
+    PushNotification.localNotification({
+      title: name,
+      message: text,
+    });
+    PushNotification.configure({
+      onNotification: function (notification) {
+        console.log('Notification is clicked')
+      }
+    })
+  }
 
   addMessage = message =>
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
@@ -94,6 +110,7 @@ export class ScrollScreen extends Component {
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
+      this.getNotification(message.name, message.text)
       console.log(message)
     }
     this.ws.onclose = () => {
@@ -102,31 +119,23 @@ export class ScrollScreen extends Component {
         ws: new WebSocket(URL),
       })
     }
-
   }
 
-  getNotification() {
-    PushNotification.localNotification({
-      title: "Orange Chat",
-      message: "Your message is sended",
-    });
-    PushNotification.configure({
-      onNotification: function (notification) {
-        console.log('Notification is clicked')
-      }
-    })
-  }
   render() {
     return (
       <ImageBackground style={{ flex: 1, }}  >
-        <KeyboardAwareScrollView style={{ width: '100%', height: '100%', marginTop: 10 }}>
-          <FlatList
-            inverted={true}
-            data={this.state.messages}
-            renderItem={({ item }) => <this.Item text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString(navigator.language, {hour: '2-digit', minute: '2-digit'})} />}
-            keyExtractor={item => item._id}
-          />
-        </KeyboardAwareScrollView>
+
+        <FlatList
+          inverted={true}
+          data={this.state.messages}
+          renderItem={({ item }) => {
+            if (this.state.IP !== item.ip) {
+              return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })} />)
+            } else {
+              return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })} />)
+            }
+          }}
+        />
       </ImageBackground>
     )
   }

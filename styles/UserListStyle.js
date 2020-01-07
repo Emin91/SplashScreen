@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         paddingLeft: 40,
     },
     text: {
+        flex: 0.7,
         fontSize: 24, 
         color: '#fff', 
         paddingLeft: 15, 
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
         fontFamily: 'CircularStd-Book',
     },
     greenDot: {
+        flex: 0.04,
         backgroundColor: 'green', 
         width: 10, 
         height: 10, 
