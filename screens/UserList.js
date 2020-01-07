@@ -61,6 +61,12 @@ class UserList extends Component {
             <View style={styles.mainView}>
                 <View style={styles.headerView}>
                 </View>
+                <View style={styles.sepView}>
+                    <Text style={styles.headerViewText}>List of
+                    <Text style={styles.textOnline}> Offline </Text>
+                        Users
+                    </Text>
+                </View>
                 <View style={styles.onlineUsers}>
                     <FlatList
                         inverted={true}

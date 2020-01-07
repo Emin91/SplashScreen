@@ -76,7 +76,7 @@ export class ScrollScreen extends Component {
   ws = new ReconnectingWebSocket(URL)
   componentDidMount() {
 
-    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
+    fetch('ws://one-chat.eu-4.evennode.com/getmessages', {
       method: 'get',
     })
       .then(response => response.json())
@@ -99,7 +99,9 @@ export class ScrollScreen extends Component {
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
+      if (message.name != this.props.username) {
       this.getNotification(message.name, message.text)
+      }
       //console.log(message)
     }
     this.ws.onclose = () => {
