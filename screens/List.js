@@ -37,7 +37,7 @@ export class ScrollScreen extends Component {
       isLoading: true,
       messages: [],
       inputText: '',
-      date: new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }),
+      date: new Date('July 36, 2018 05:35'),
       ws: '',
       name: '',
       IP: '',
@@ -152,9 +152,9 @@ export class ScrollScreen extends Component {
           data={this.state.messages}
           renderItem={({ item }) => {
             if (this.state.IP !== item.ip) {
-              return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })} />)
+              return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}/>)
             } else {
-              return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })} />)
+              return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
             }
           }}
         />

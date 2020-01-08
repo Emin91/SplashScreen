@@ -5,6 +5,8 @@ import { View, StyleSheet, Linking } from 'react-native';
 
 
 
+
+
 export default class Hyper extends React.Component {
 
 

@@ -33,7 +33,7 @@ export class ChatInput extends Component {
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
 
   submitMessage() {
-    if (this.state.inputText !== "") {
+    if (this.state.inputText !== "" && this.state.inputText.trim().length !== 0) {
       this.ws.send(JSON.stringify({
         text: this.state.inputText,
         time: this.state.data,
@@ -59,6 +59,9 @@ export class ChatInput extends Component {
         .then((response) => {
           console.log(response)
         })
+    } else {
+      this.setState({ inputText: '' })
+
     }
   }
 
