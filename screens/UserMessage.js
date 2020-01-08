@@ -11,7 +11,7 @@ export class UserMessage extends Component {
         <Text style={{ fontSize: 12, color: '#000', fontFamily: 'CircularStd-Book' }}>{this.props.name}</Text>
                     </View>
                     <View style={{ flex: 0.7, backgroundColor: '#d2d2d2', borderTopRightRadius: 6, paddingRight: 10, marginRight: 30 }}>
-        <Text style={{ fontSize: 12, color: '#000',alignSelf: 'flex-end', fontFamily: 'CircularStd-Book' }}>{this.props.ip}</Text>
+        <Text style={{ fontSize: 12, color: '#000',alignSelf: 'flex-end', fontFamily: 'CircularStd-Book' }} adjustsFontSizeToFit={true} numberOfLines={1}>{this.props.ip}</Text>
                     </View>
                 </View>
                 <View style={{ flex: 1.5, flexDirection: 'row' }}>
@@ -19,7 +19,7 @@ export class UserMessage extends Component {
                         <Text style={{ fontSize: 20, color: '#000', fontFamily: 'CircularStd-Book' }}>{this.props.text}</Text>
                     </View>
                     <View style={{ flex: 0.4, backgroundColor: '#fff', borderTopRightRadius: 10, borderBottomRightRadius: 10, alignItems: 'flex-end', paddingRight: 10, paddingTop: 3 }}>
-                        <Text>{this.props.time}</Text>
+                        <Text adjustsFontSizeToFit={true} numberOfLines={1}>{this.props.time}</Text>
                     </View>
                 </View>
             </View>

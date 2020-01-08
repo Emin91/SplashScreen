@@ -3,28 +3,28 @@ import { Text, ImageBackground, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
-import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
+//import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { Dimensions } from "react-native";
 import UserMessage from './UserMessage'
-import PushNotification from "react-native-push-notification"
+//import PushNotification from "react-native-push-notification"
 
-PushNotification.configure({
-  onRegister: function (token) {
-    //console.log("TOKEN:", token);
-  },
-  onNotification: function (notification) {
-    console.log("NOTIFICATION text here is:", notification);
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
-  },
-  senderID: "468408451342",
-  permissions: {
-    alert: true,
-    badge: true,
-    sound: true
-  },
-  popInitialNotification: true,
-  requestPermissions: true
-});
+// PushNotification.configure({
+//   onRegister: function (token) {
+//     //console.log("TOKEN:", token);
+//   },
+//   onNotification: function (notification) {
+//     console.log("NOTIFICATION text here is:", notification);
+//     notification.finish(PushNotificationIOS.FetchResult.NoData);
+//   },
+//   senderID: "468408451342",
+//   permissions: {
+//     alert: true,
+//     badge: true,
+//     sound: true
+//   },
+//   popInitialNotification: true,
+//   requestPermissions: true
+// });
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const URL = 'ws://one-chat.eu-4.evennode.com/'
@@ -52,7 +52,7 @@ export class ScrollScreen extends Component {
             </View>
           </View>
           <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
-            <Text style={{ color: '#636e72' }}>{time}</Text>
+            <Text style={{ color: '#c2c2c2' }}>{time}</Text>
           </View>
         </View>
     )
@@ -60,8 +60,8 @@ export class ScrollScreen extends Component {
 
   getNotification(text, name) {
     PushNotification.localNotification({
-      title: name,
-      message: text,
+      title: text,
+      message: name,
     });
     PushNotification.configure({
       onNotification: function (notification) {
@@ -73,10 +73,10 @@ export class ScrollScreen extends Component {
   addMessage = message =>
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
 
-  ws = new ReconnectingWebSocket(URL)
+  ws = new WebSocket(URL)
   componentDidMount() {
 
-    fetch('ws://one-chat.eu-4.evennode.com/getmessages', {
+    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
       method: 'get',
     })
       .then(response => response.json())
@@ -93,23 +93,22 @@ export class ScrollScreen extends Component {
     })
 
     this.ws.onopen = () => {
-      //console.log('connected')
+      console.log('connected')
     }
 
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
-      if (message.name != this.props.username) {
-      this.getNotification(message.name, message.text)
-      }
-      //console.log(message)
+      // this.getNotification(message.name, message.text)
+      // //console.log(message)
     }
     this.ws.onclose = () => {
       console.log('disconnected')
-      this.setState({
-        ws: new WebSocket(URL),
-      })
-    }
+      ws = new WebSocket(URL)
+    //   this.setState({
+    //    ws: new WebSocket(URL),
+    //  })
+     }
   }
 
   render() {

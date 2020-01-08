@@ -34,7 +34,7 @@ export class DrawerMenu extends Component {
                             <View style={{ flex: 1, borderRadius: 10, backgroundColor: '#fff', }}>
                                 <View style={{ flex: 1, alignItems: 'center', }}>
                                     <View style={styles.textView}>
-                                        <Text style={{ fontSize: 18, fontFamily: 'CircularStd-Book' }}>
+                                        <Text style={{ fontSize: 14, fontFamily: 'CircularStd-Book' }} adjustsFontSizeToFit={true} numberOfLines={1}>
                                             {this.state.colorTitle}
                                         </Text>
                                     </View>
@@ -88,7 +88,7 @@ export class DrawerMenu extends Component {
                             <View style={{ flex: 1, borderRadius: 10, backgroundColor: '#fff', }}>
                                 <View style={{ flex: 1, alignItems: 'center', }}>
                                     <View style={styles.textView}>
-                                        <Text style={{ fontSize: 18, fontFamily: 'CircularStd-Book' }}>
+                                        <Text style={{ fontSize: 14, fontFamily: 'CircularStd-Book' }} adjustsFontSizeToFit={true} numberOfLines={1}>
                                             {this.state.backgroundTitle}
                                         </Text>
                                     </View>

@@ -9,8 +9,6 @@ const styles = StyleSheet.create({
     burgerBtn: {
       width: 25,
       height: 20,
-      marginTop: 32, 
-      marginLeft: 20,
     },
   })
 

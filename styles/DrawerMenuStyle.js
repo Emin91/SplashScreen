@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         backgroundColor: '#D2D2D2', 
         borderBottomLeftRadius: 5, 
-        borderBottomRightRadius: 5, 
-        width: 200,
+        borderBottomRightRadius: 5,
+        width: '75%',
     },
     imgLineOne: {
         flexDirection: 'row', 

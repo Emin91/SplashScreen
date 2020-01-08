@@ -45,28 +45,21 @@ closeDrawer() {
         <StatusBar backgroundColor="#F23A12" barStyle="light-content" />       
           <ImageBackground style={styles.container} source={this.props.result}>
             <View style={styles.container}>
-            <Header
-                    centerContainerStyle={{ justifyContent: 'center', }}
-                    backgroundColor={'#fc441b'}
-                    centerComponent={{
-                        text: 'Orange',
-                        style: {
-                            color: '#fff',
-                            fontFamily: 'Bukhari Script',
-                            fontSize: 40,
-                            width: 135,
-                            marginBottom: 10
-                        }
-                    }}
-                />
-                <TouchableOpacity 
-                onPress={this.openDrawer.bind(this)}
-                style={{position: 'absolute'}} >
+              <View style={{ width: '100%', height: 60,backgroundColor: '#fc441b', alignItems: 'center', justifyContent: 'center', paddingTop: 5, paddingBottom: 5 }}>
+                <Image
+                  source={require('../src/assets/img/titleLogo.png')}
+                  style={{ width: '40%', height: '100%', resizeMode: 'center'}}></Image>
+              </View>
+              <View style={{ width: '100%', height: 60, position: 'absolute', justifyContent: 'center', alignItems: 'flex-start', paddingLeft: 10 }}>
+                  <TouchableOpacity
+                    onPress={this.openDrawer.bind(this)}
+                     >
                     <Image
-                        source={require('../src/assets/img/burger.png')}
-                        style={styles.burgerBtn} 
-                        />
-                </TouchableOpacity>
+                      source={require('../src/assets/img/burger.png')}
+                      style={styles.burgerBtn}
+                    />
+                  </TouchableOpacity>
+                </View>
               <Scrollist />
               <Input />
             </View>

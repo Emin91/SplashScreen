@@ -69,14 +69,13 @@ export class ChatInput extends Component {
         <View >
           <TextInput
             style={styles.textInput}
-            multiline
-            numberOfLines={2}
+            multiline={false}
+            numberOfLines={1}
             placeholder='Type something...'
             selectionColor={'#FC441B'}
             onChangeText={inputText => this.setState({ inputText })}
             value={this.state.inputText}
             maxLength={400}
-            tex
           />
         </View>
         <View style={styles.btnSendView}>
