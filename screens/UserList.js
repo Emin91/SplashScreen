@@ -63,7 +63,7 @@ class UserList extends Component {
                 </View>
                 <View style={styles.sepView}>
                     <Text style={styles.headerViewText}>List of
-                    <Text style={styles.textOnline}> Offline </Text>
+                    <Text style={styles.textOnline}> Online </Text>
                         Users
                     </Text>
                 </View>
@@ -73,9 +73,14 @@ class UserList extends Component {
                         data={this.state.messages}
                         renderItem={({ item }) => {
                             if (item.state == true) {
+                                if (item.name === undefined){
+
+                                   return(<this.onlineUsers  name = 'Undefined User' />)
+                                }
+                                else{
                                 return (<this.onlineUsers name={item.name
-                                } />)
-                            }
+                                }/>)
+                            }}
                         }
                         }
                         keyExtractor={item => item._id}
@@ -93,9 +98,14 @@ class UserList extends Component {
                         data={this.state.messages}
                         renderItem={({ item }) => {
                             if (item.state !== true) {
+                                if (item.name === undefined){
+
+                                    return(<this.onlineUsers  name = 'Undefined User' />)
+                                 }
+                                 else{
                                 return (<this.offlineUsers name={item.name
                                 } />)
-                            }
+                            }}
                         }
                         }
                         keyExtractor={item => item._id}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, ImageBackground, View, FlatList } from 'react-native'
+import { Text, Linking, ImageBackground, View, FlatList, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
@@ -7,6 +7,7 @@ import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { Dimensions } from "react-native";
 import UserMessage from './UserMessage'
 import PushNotification from "react-native-push-notification"
+import ParsedText from 'react-native-parsed-text';
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -43,18 +44,49 @@ export class ScrollScreen extends Component {
     }
   }
 
+  
+  handleUrlPress(url, matchIndex /*: number*/) {
+    console.log ('URL is pressed')
+    Linking.openURL(url);
+  }
+
+
+
+  renderText(matchingString, matchIndex) {
+    let pattern = /\[(@[^:]+):([^\]]+)\]/i;
+    let match = matchingString.match(pattern);
+    return `^^${match[1]}^^`;
+  }
+
+
+
   OurMess = ({ text, time, ip, name }) => {
+
+
     return (
       <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
-          <View style={{ flex: 1, paddingLeft: 100 }}>
-            <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
-              <Text style={{ fontSize: 20, color: '#fff', fontFamily: 'CircularStd-Book', }}>{text}</Text>
-            </View>
-          </View>
-          <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
-            <Text style={{ color: '#636e72' }}>{time}</Text>
+        <View style={{ flex: 1, paddingLeft: 100 }}>
+          <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
+          <ParsedText
+          
+          parse={
+            [
+              {type: 'url',                       style: styles.url, onPress: this.handleUrlPress},
+              {type: 'phone',                     style: styles.phone, onPress: this.handlePhonePress},
+              {type: 'email',                     style: styles.email, onPress: this.handleEmailPress},
+            ]
+          }
+          childrenProps={{allowFontScaling: false}}
+        >
+          {text}
+
+        </ParsedText>
           </View>
         </View>
+        <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
+          <Text style={{ color: '#636e72' }}>{time}</Text>
+        </View>
+      </View>
     )
   }
 
@@ -76,7 +108,7 @@ export class ScrollScreen extends Component {
   ws = new ReconnectingWebSocket(URL)
   componentDidMount() {
 
-    fetch('ws://one-chat.eu-4.evennode.com/getmessages', {
+    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
       method: 'get',
     })
       .then(response => response.json())
@@ -100,7 +132,7 @@ export class ScrollScreen extends Component {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
       if (message.name != this.props.username) {
-      this.getNotification(message.name, message.text)
+        this.getNotification(message.name, message.text)
       }
       //console.log(message)
     }
@@ -143,6 +175,54 @@ function mapDispatchToProps(dispatch) {
     number: (id) => dispatch(chacgebg(id)),
   }
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+
+  url: {
+    color: 'black',
+    textDecorationLine: 'underline',
+  },
+
+  email: {
+    textDecorationLine: 'underline',
+  },
+
+  text: {
+    color: 'black',
+    fontSize: 15,
+  },
+
+  phone: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+
+  name: {
+    color: 'red',
+  },
+
+  username: {
+    color: 'green',
+    fontWeight: 'bold'
+  },
+
+  magicNumber: {
+    fontSize: 42,
+    color: 'pink',
+  },
+
+  hashTag: {
+    fontStyle: 'italic',
+  },
+
+});
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollScreen)
 
 
