@@ -3,28 +3,29 @@ import { Text, ImageBackground, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
-//import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { Dimensions } from "react-native";
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import UserMessage from './UserMessage'
-//import PushNotification from "react-native-push-notification"
+import Hyperlink from 'react-native-hyperlink'
+import PushNotification from "react-native-push-notification"
 
-// PushNotification.configure({
-//   onRegister: function (token) {
-//     //console.log("TOKEN:", token);
-//   },
-//   onNotification: function (notification) {
-//     console.log("NOTIFICATION text here is:", notification);
-//     notification.finish(PushNotificationIOS.FetchResult.NoData);
-//   },
-//   senderID: "468408451342",
-//   permissions: {
-//     alert: true,
-//     badge: true,
-//     sound: true
-//   },
-//   popInitialNotification: true,
-//   requestPermissions: true
-// });
+PushNotification.configure({
+  onRegister: function (token) {
+    //console.log("TOKEN:", token);
+  },
+  onNotification: function (notification) {
+    console.log("NOTIFICATION text here is:", notification);
+    notification.finish(PushNotificationIOS.FetchResult.NoData);
+  },
+  senderID: "468408451342",
+  permissions: {
+    alert: true,
+    badge: true,
+    sound: true
+  },
+  popInitialNotification: true,
+  requestPermissions: true
+});
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const URL = 'ws://one-chat.eu-4.evennode.com/'
@@ -43,18 +44,20 @@ export class ScrollScreen extends Component {
     }
   }
 
-  OurMess = ({ text, time, ip, name }) => {
+  OurMess = ({ text, time, }) => {
     return (
       <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
-          <View style={{ flex: 1, paddingLeft: 100 }}>
-            <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
+        <View style={{ flex: 1, paddingLeft: 100 }}>
+          <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
+            <Hyperlink linkDefault={true}>
               <Text style={{ fontSize: 20, color: '#fff', fontFamily: 'CircularStd-Book', }}>{text}</Text>
-            </View>
-          </View>
-          <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
-            <Text style={{ color: '#c2c2c2' }}>{time}</Text>
+            </Hyperlink>
           </View>
         </View>
+        <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
+          <Text style={{ color: '#c2c2c2' }}>{time}</Text>
+        </View>
+      </View>
     )
   }
 
@@ -99,32 +102,34 @@ export class ScrollScreen extends Component {
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
-      // this.getNotification(message.name, message.text)
+      //this.getNotification(message.name, message.text)
       // //console.log(message)
     }
     this.ws.onclose = () => {
       console.log('disconnected')
       ws = new WebSocket(URL)
-    //   this.setState({
-    //    ws: new WebSocket(URL),
-    //  })
-     }
+      //   this.setState({
+      //    ws: new WebSocket(URL),
+      //  })
+    }
   }
 
   render() {
     return (
       <ImageBackground style={{ flex: 1, }} >
-        <FlatList
-          inverted={true}
-          data={this.state.messages}
-          renderItem={({ item }) => {
-            if (this.state.IP !== item.ip) {
-              return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })} />)
-            } else {
-              return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })} />)
-            }
-          }}
-        />
+        <Hyperlink linkDefault={true}>
+          <FlatList
+            inverted={true}
+            data={this.state.messages}
+            renderItem={({ item }) => {
+              if (this.state.IP !== item.ip) {
+                return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+              } else {
+                return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+              }
+            }}
+          />
+        </Hyperlink>
       </ImageBackground>
     )
   }
@@ -143,28 +148,3 @@ function mapDispatchToProps(dispatch) {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollScreen)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // < View style = {{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }}>
-  //   <View style={{ width: 290 }}>
-  //     <Text style={{
-  //       paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
-  //     }}> Hi. I am Test</Text>
-  //     <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
-  //       <Text style={{ color: '#EDEDED', }}>6:30 PM</Text>
-  //     </View>
-  //   </View>

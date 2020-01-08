@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, FlatList } from 'react-native'
+import { Text, View, FlatList } from 'react-native'
 import styles from '../styles/UserListStyle'
 import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { Dimensions } from "react-native";
@@ -16,28 +16,26 @@ class UserList extends Component {
         }
     }
 
-
-    offlineUsers = ({ name }) => {
-
+    onlineUsers = ({ name }) => {
         return (
-            <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
-                <View style={styles.redDot} />
-                <Text style={styles.text}>{name}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 1, marginTop: 1, width: screenWidth / 1.2, height: 20 }} >
+                <View style={styles.greenDot} />
+                <Text style={styles.text} adjustsFontSizeToFit={true} numberOfLines={1}>{name}</Text>
             </View>
         )
     }
-    onlineUsers = ({ name }) => {
+
+    offlineUsers = ({ name }) => {
         return (
-            <View style={{ flexDirection: 'row', flex: 1, paddingTop: 5, paddingBottom: 4, borderTopRightRadius: 60, borderBottomRightRadius: 60, marginBottom: 4, width: screenWidth / 1.5 }} >
-                <View style={styles.greenDot} />
-                <Text style={styles.text}>{name}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 1, marginTop: 1, width: screenWidth / 1.2, height: 20 }} >
+                <View style={styles.greyDot} />
+                <Text style={styles.text} adjustsFontSizeToFit={true} numberOfLines={1}>{name}</Text>
             </View>
         )
     }
 
     ws = new ReconnectingWebSocket(URL)
     componentDidMount() {
-
         fetch('http://one-chat.eu-4.evennode.com/getusers', {
             method: 'get',
         })
@@ -62,19 +60,18 @@ class UserList extends Component {
                 <View style={styles.headerView}>
                 </View>
                 <View style={styles.sepView}>
-                    <Text style={styles.headerViewText}>List of
-                    <Text style={styles.textOnline}> Offline </Text>
+                    <Text style={styles.headerViewText} adjustsFontSizeToFit={true} numberOfLines={1}>List of
+                    <Text style={styles.textOnline} > Online </Text>
                         Users
                     </Text>
                 </View>
                 <View style={styles.onlineUsers}>
                     <FlatList
-                        inverted={true}
+                        inverted={false}
                         data={this.state.messages}
                         renderItem={({ item }) => {
                             if (item.state == true) {
-                                return (<this.onlineUsers name={item.name
-                                } />)
+                                return (<this.onlineUsers name={item.name} />)
                             }
                         }
                         }
@@ -89,12 +86,11 @@ class UserList extends Component {
                 </View>
                 <View style={styles.onlineUsers}>
                     <FlatList
-                        inverted={true}
+                        inverted={false}
                         data={this.state.messages}
                         renderItem={({ item }) => {
                             if (item.state !== true) {
-                                return (<this.offlineUsers name={item.name
-                                } />)
+                                return (<this.offlineUsers name={item.name} />)
                             }
                         }
                         }

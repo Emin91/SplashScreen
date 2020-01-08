@@ -69,11 +69,12 @@ const styles = StyleSheet.create({
     },
     textInputStyle: {
         paddingLeft: '8%', 
+        height: 50,
         backgroundColor: 'white', 
         borderColor: '#F23A12', 
-        borderWidth: 1.8, 
+        borderWidth: 3, 
         fontSize: 18, 
-        borderRadius: 66, 
+        borderRadius: 30, 
         fontFamily: 'CircularStd-Book'
     },
     inputSendBtn: {

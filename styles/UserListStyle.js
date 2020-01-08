@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     sepView: {
         flex: 1, 
         backgroundColor: '#F23A12', 
-        justifyContent: 'flex-end', 
+        justifyContent: 'center', 
         alignItems: 'center',
     },
     headerView: {
@@ -24,22 +24,18 @@ const styles = StyleSheet.create({
     },
     onlineUsers: {
         flex: 3, 
+        alignItems: 'center',
         backgroundColor: '#d74525', 
-        paddingLeft: 20, 
-        paddingRight: 20, 
-        paddingTop: 20, 
-        paddingBottom: 20,
-    },
-    textView: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        paddingLeft: 40,
+        paddingLeft: 5, 
+        paddingRight: 5, 
+        paddingTop: 5, 
+        paddingBottom: 5,
     },
     text: {
         flex: 0.7,
-        fontSize: 22, 
+        fontSize: 16, 
         color: '#fff', 
-        paddingLeft: 15, 
+        paddingLeft: 4, 
         fontFamily: 'CircularStd-Book',
     },
     textOnline: {
@@ -59,12 +55,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'green', 
         width: 10, 
         height: 10, 
+        marginLeft: 10,
         borderRadius: 30,
     },
-    redDot: {
+    greyDot: {
+        flex: 0.04,
         backgroundColor: '#626262', 
         width: 10, 
         height: 10, 
+        marginLeft: 10,
         borderRadius: 30,
     },
 })

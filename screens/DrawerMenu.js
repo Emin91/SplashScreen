@@ -11,12 +11,10 @@ export class DrawerMenu extends Component {
             colorTitle: "Message background",
             backgroundTitle: "Backgrounds",
             changeUserNameText: "Change user name:",
-           
         }
     }
 
     submitMessage(inputName) {
-         
         return this.setState(inputName)
         }
     
@@ -166,12 +164,13 @@ export class DrawerMenu extends Component {
                             </View>
                         </View>
                         <View style={styles.changeUserNameView}>
-                            <Text style={styles.changeUserNameText}>{this.state.changeUserNameText}</Text>
+                            <Text style={styles.changeUserNameText} adjustsFontSizeToFit={true} numberOfLines={1}>{this.state.changeUserNameText}</Text>
                         </View>
                         <View style={{paddingLeft: 5, paddingRight: 5}}>
                             <TextInput
                                 onChangeText={inputName => this.submitMessage({ inputName })}
                                 style={styles.textInputStyle}
+                                selectionColor={'#fc441b'}
                                 placeholder='Type something...'
                             />
                             <View style={styles.inputSendBtn}>
@@ -201,7 +200,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         number: (id) => dispatch(chacgebg(id)),
-       
     }
 }
 
