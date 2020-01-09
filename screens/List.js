@@ -4,11 +4,9 @@ import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
 import { Dimensions } from "react-native";
-import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import UserMessage from './UserMessage'
 import Hyperlink from 'react-native-hyperlink'
 import PushNotification from "react-native-push-notification"
-import ParsedText from 'react-native-parsed-text';
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -28,7 +26,6 @@ PushNotification.configure({
   requestPermissions: true
 });
 
-const screenWidth = Math.round(Dimensions.get('window').width);
 const URL = 'ws://web-chat.eu-4.evennode.com/'
 
 export class ScrollScreen extends Component {
@@ -40,14 +37,11 @@ export class ScrollScreen extends Component {
       inputText: '',
       date: new Date('July 36, 2018 05:35'),
       ws: '',
-     
       IP: '',
     }
   }
 
   OurMess = ({ text, time, }) => {
-
-
     return (
       <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
         <View style={{ flex: 1, paddingLeft: 100 }}>
@@ -55,23 +49,12 @@ export class ScrollScreen extends Component {
             <Hyperlink linkDefault={true}>
               <Text style={{ fontSize: 20, color: '#fff', fontFamily: 'CircularStd-Book', }}>{text}</Text>
             </Hyperlink>
-            [
-              {type: 'url',                       style: styles.url, onPress: this.handleUrlPress},
-              {type: 'phone',                     style: styles.phone, onPress: this.handlePhonePress},
-              {type: 'email',                     style: styles.email, onPress: this.handleEmailPress},
-            ]
-          }
-          childrenProps={{allowFontScaling: false}}
-        >
-          {text}
-
-        </ParsedText>
           </View>
         </View>
         <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
           <Text style={{ color: '#c2c2c2' }}>{time}</Text>
         </View>
-      </View>
+      </View >
     )
   }
 
@@ -87,13 +70,9 @@ export class ScrollScreen extends Component {
     })
   }
 
-  addMessage = message =>
-    this.setState(state => ({ messages: [message, ...this.state.messages] }))
-
+  addMessage = message => this.setState(state => ({ messages: [message, ...this.state.messages] }))
   ws = new WebSocket(URL)
   componentDidMount() {
-    this.setUserName()
-
     fetch('http://web-chat.eu-4.evennode.com/getmessages', {
       method: 'get',
     })
@@ -106,10 +85,6 @@ export class ScrollScreen extends Component {
         //console.error(error);
       });
 
-    NetworkInfo.getIPAddress().then(ipAddress => {
-      this.setState({ IP: ipAddress })
-    })
-
     this.ws.onopen = () => {
       //console.log('connected')
     }
@@ -119,40 +94,15 @@ export class ScrollScreen extends Component {
       this.addMessage(message)
       if (message.name != this.props.username) {
         this.getNotification(message.name, message.text)
-    }
-    this.ws.onclose = () => {
-      console.log('disconnected')
-      this.setState({
-        ws: new WebSocket(URL),
-      })
+      }
+      this.ws.onclose = () => {
+        console.log('disconnected')
+        this.setState({
+          ws: new WebSocket(URL),
+        })
+      }
     }
   }
-
-  setUserName() {
-    if(this.props.username==undefined){
-        new WebSocket('http://web-chat.eu-4.evennode.com/putuser').send(JSON.stringify({
-        id:this.props.ID,
-        name: 'User',
-        state: true,
-    }));
-    fetch(urlPut, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify({
-            id:this.props.ID,
-            name: 'User',
-            state: true,
-        }),
-    }).then((response) => response.json())
-       
-    console.log('SetUser' + setUserName());
-    }
-    
-}
-
 
   render() {
     return (
@@ -162,20 +112,22 @@ export class ScrollScreen extends Component {
             inverted={true}
             data={this.state.messages}
             renderItem={({ item }) => {
-            if (this.props.username!== item.name) {
-              return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}/>)
+              if (this.props.username !== item.name) {
+                return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               } else {
-              return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+                return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               }
             }}
           />
         </Hyperlink>
-      </ImageBackground>
+        </ImageBackground>
     )
   }
 }
 
-function mapStateToProps(state) {
+
+  
+  function mapStateToProps(state) {
   return {
     result: state.result,
     back: state.back,
@@ -188,4 +140,5 @@ function mapDispatchToProps(dispatch) {
     number: (id) => dispatch(chacgebg(id)),
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollScreen)

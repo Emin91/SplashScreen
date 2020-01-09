@@ -23,7 +23,6 @@
     "react-native-hyperlink": "0.0.19",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-network-info": "^5.2.1",
-    "react-native-parsed-text": "0.0.21",
     "react-native-push-notification": "^3.1.9",
     "react-native-reanimated": "^1.4.0",
     "react-native-reconnecting-websocket": "^1.0.2",

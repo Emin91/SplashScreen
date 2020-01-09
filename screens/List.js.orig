@@ -8,7 +8,6 @@ import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import UserMessage from './UserMessage'
 import Hyperlink from 'react-native-hyperlink'
 import PushNotification from "react-native-push-notification"
-import ParsedText from 'react-native-parsed-text';
 
 PushNotification.configure({
   onRegister: function (token) {
