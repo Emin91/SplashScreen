@@ -4,10 +4,14 @@ import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
 import { Dimensions } from "react-native";
-import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
+<<<<<<< HEAD
+=======
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket'
+>>>>>>> origin/Notification
 import UserMessage from './UserMessage'
 import Hyperlink from 'react-native-hyperlink'
 import PushNotification from "react-native-push-notification"
+
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -27,7 +31,6 @@ PushNotification.configure({
   requestPermissions: true
 });
 
-const screenWidth = Math.round(Dimensions.get('window').width);
 const URL = 'ws://web-chat.eu-4.evennode.com/'
 
 export class ScrollScreen extends Component {
@@ -39,39 +42,16 @@ export class ScrollScreen extends Component {
       inputText: '',
       date: new Date('July 36, 2018 05:35'),
       ws: '',
-     
       IP: '',
     }
   }
 
-<<<<<<< HEAD
   OurMess = ({ text, time, }) => {
-=======
-  
-  handleUrlPress(url, matchIndex /*: number*/) {
-    console.log ('URL is pressed')
-    Linking.openURL(url);
-  }
-
-
-
-  renderText(matchingString, matchIndex) {
-    let pattern = /\[(@[^:]+):([^\]]+)\]/i;
-    let match = matchingString.match(pattern);
-    return `^^${match[1]}^^`;
-  }
-
-
-
-  OurMess = ({ text, time, ip, name }) => {
-
-
->>>>>>> My_Notification_Fixed
     return (
       <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
+      
         <View style={{ flex: 1, paddingLeft: 100 }}>
           <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
-<<<<<<< HEAD
             <Hyperlink linkDefault={true}>
               <Text style={{ fontSize: 20, color: '#fff', fontFamily: 'CircularStd-Book', }}>{text}</Text>
             </Hyperlink>
@@ -79,28 +59,8 @@ export class ScrollScreen extends Component {
         </View>
         <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
           <Text style={{ color: '#c2c2c2' }}>{time}</Text>
-=======
-          <ParsedText
-          
-          parse={
-            [
-              {type: 'url',                       style: styles.url, onPress: this.handleUrlPress},
-              {type: 'phone',                     style: styles.phone, onPress: this.handlePhonePress},
-              {type: 'email',                     style: styles.email, onPress: this.handleEmailPress},
-            ]
-          }
-          childrenProps={{allowFontScaling: false}}
-        >
-          {text}
-
-        </ParsedText>
-          </View>
         </View>
-        <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
-          <Text style={{ color: '#636e72' }}>{time}</Text>
->>>>>>> My_Notification_Fixed
-        </View>
-      </View>
+      </View >
     )
   }
 
@@ -116,18 +76,14 @@ export class ScrollScreen extends Component {
     })
   }
 
-  addMessage = message =>
-    this.setState(state => ({ messages: [message, ...this.state.messages] }))
-
+  addMessage = message => this.setState(state => ({ messages: [message, ...this.state.messages] }))
   ws = new WebSocket(URL)
   componentDidMount() {
-    this.setUserName()
-
 <<<<<<< HEAD
-    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
-=======
     fetch('http://web-chat.eu-4.evennode.com/getmessages', {
->>>>>>> My_Notification_Fixed
+=======
+    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
+>>>>>>> origin/Notification
       method: 'get',
     })
       .then(response => response.json())
@@ -139,26 +95,26 @@ export class ScrollScreen extends Component {
         //console.error(error);
       });
 
-    NetworkInfo.getIPAddress().then(ipAddress => {
-      this.setState({ IP: ipAddress })
-    })
-
     this.ws.onopen = () => {
-      console.log('connected')
+      //console.log('connected')
     }
 
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
 <<<<<<< HEAD
-      //this.getNotification(message.name, message.text)
-      // //console.log(message)
-=======
       if (message.name != this.props.username) {
         this.getNotification(message.name, message.text)
       }
-      //console.log(message)
->>>>>>> My_Notification_Fixed
+      this.ws.onclose = () => {
+        console.log('disconnected')
+        this.setState({
+          ws: new WebSocket(URL),
+        })
+      }
+=======
+      this.getNotification(message.name, message.text)
+      // //console.log(message)
     }
     this.ws.onclose = () => {
       console.log('disconnected')
@@ -166,72 +122,36 @@ export class ScrollScreen extends Component {
       //   this.setState({
       //    ws: new WebSocket(URL),
       //  })
+>>>>>>> origin/Notification
     }
   }
-
-  setUserName() {
-    if(this.props.username==undefined){
-        new WebSocket('http://web-chat.eu-4.evennode.com/putuser').send(JSON.stringify({
-        id:this.props.ID,
-        name: 'User',
-        state: true,
-    }));
-    fetch(urlPut, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify({
-            id:this.props.ID,
-            name: 'User',
-            state: true,
-        }),
-    }).then((response) => response.json())
-       
-    console.log('SetUser' + setUserName());
-    }
-    
-}
 
 
   render() {
     return (
       <ImageBackground style={{ flex: 1, }} >
-<<<<<<< HEAD
         <Hyperlink linkDefault={true}>
           <FlatList
             inverted={true}
             data={this.state.messages}
             renderItem={({ item }) => {
-              if (this.state.IP !== item.ip) {
+              if (this.props.username !== item.name) {
                 return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               } else {
                 return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               }
             }}
+
           />
         </Hyperlink>
-=======
-        <FlatList
-          inverted={true}
-          data={this.state.messages}
-          renderItem={({ item }) => {
-            if (this.props.username!== item.name) {
-              return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}/>)
-            } else {
-              return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
-            }
-          }}
-        />
->>>>>>> My_Notification_Fixed
-      </ImageBackground>
+        </ImageBackground>
     )
   }
 }
 
 
-function mapStateToProps(state) {
+  
+  function mapStateToProps(state) {
   return {
     result: state.result,
     back: state.back,
@@ -244,81 +164,5 @@ function mapDispatchToProps(dispatch) {
     number: (id) => dispatch(chacgebg(id)),
   }
 }
-<<<<<<< HEAD
+
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollScreen)
-=======
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-
-  url: {
-    color: 'black',
-    textDecorationLine: 'underline',
-  },
-
-  email: {
-    textDecorationLine: 'underline',
-  },
-
-  text: {
-    color: 'black',
-    fontSize: 15,
-  },
-
-  phone: {
-    color: 'blue',
-    textDecorationLine: 'underline',
-  },
-
-  name: {
-    color: 'red',
-  },
-
-  username: {
-    color: 'green',
-    fontWeight: 'bold'
-  },
-
-  magicNumber: {
-    fontSize: 42,
-    color: 'pink',
-  },
-
-  hashTag: {
-    fontStyle: 'italic',
-  },
-
-});
-export default connect(mapStateToProps, mapDispatchToProps)(ScrollScreen)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // < View style = {{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }}>
-  //   <View style={{ width: 290 }}>
-  //     <Text style={{
-  //       paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 10, borderTopLeftRadius: 10, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back
-  //     }}> Hi. I am Test</Text>
-  //     <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
-  //       <Text style={{ color: '#EDEDED', }}>6:30 PM</Text>
-  //     </View>
-  //   </View>
->>>>>>> My_Notification_Fixed

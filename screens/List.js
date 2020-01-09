@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, Linking, ImageBackground, View, FlatList, StyleSheet } from 'react-native'
+import { Text, ImageBackground, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
@@ -44,6 +44,7 @@ export class ScrollScreen extends Component {
   OurMess = ({ text, time, }) => {
     return (
       <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
+      
         <View style={{ flex: 1, paddingLeft: 100 }}>
           <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
             <Hyperlink linkDefault={true}>
@@ -54,7 +55,7 @@ export class ScrollScreen extends Component {
         <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
           <Text style={{ color: '#c2c2c2' }}>{time}</Text>
         </View>
-      </View >
+      </View>
     )
   }
 
@@ -104,6 +105,7 @@ export class ScrollScreen extends Component {
     }
   }
 
+
   render() {
     return (
       <ImageBackground style={{ flex: 1, }} >
@@ -118,6 +120,7 @@ export class ScrollScreen extends Component {
                 return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               }
             }}
+
           />
         </Hyperlink>
         </ImageBackground>
@@ -125,9 +128,7 @@ export class ScrollScreen extends Component {
   }
 }
 
-
-  
-  function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     result: state.result,
     back: state.back,
