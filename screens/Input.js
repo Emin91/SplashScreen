@@ -17,6 +17,7 @@ export class ChatInput extends Component {
       date: new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }),
       ws: '',
       IP: ''
+      
     }
   }
   ws = new WebSocket(URL)

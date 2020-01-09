@@ -1,5 +1,5 @@
 export const initialState = {
-    username: 'User',
+    username : 'User',
     result: require('../src/assets/img/default.jpg'),
     back:'#FC441B',
     
@@ -37,14 +37,16 @@ function reducer(state = initialState, action) {
             console.log('buttom is working')
             result = require('../src/assets/img/default.jpg')
             return { ...state,result: JSON.stringify(result) }
-        }        
+        }
+        
         else if (action.id == 1) {
             back = '#FC441B'
             return {...state, back }
         }
         else if (action.id == 2) {
             console.log('buttom is working')
-            back = '#2980B9'          
+            back = '#2980B9'
+           
             return { ...state,back }
         }
         else if (action.id == 3) {
@@ -67,13 +69,21 @@ function reducer(state = initialState, action) {
             back = '#8E44AD'
             return {...state, back }
         }
-        else if(action.inputName !==''){
-            username = action.inputName
+
+        else if(action.inputName === ''){
+            console.log('If srabotyal = ' + action.inputName);
+
+            username = 'User'
             return  { ...state, username }
-        }  
-        else if (action.inputName === ''){
-            console.log('If srabotyal = ' + action.inputName);           
-            username = 'User'            
+
+        }
+   
+    
+        else if (action.inputName !== '' ){
+            
+            username = action.inputName
+
+            
             return  { ...state, username }
         }
 

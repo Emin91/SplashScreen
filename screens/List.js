@@ -75,6 +75,8 @@ export class ScrollScreen extends Component {
     })
   }
 
+ 
+
   addMessage = message =>
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
 
@@ -130,10 +132,11 @@ export class ScrollScreen extends Component {
           data={this.state.messages}
           renderItem={({ item }) => {
             if (item.time !== undefined ) {
-              if (this.props.username !== item.name) {
-                return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
-              } else {
+              if (this.props.username === item.name && this.state.IP === item.ip) {
+                
                 return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+              } else {
+                return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               }
             }
           }

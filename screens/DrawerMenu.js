@@ -11,11 +11,11 @@ export class DrawerMenu extends Component {
             colorTitle: "Message background",
             backgroundTitle: "Backgrounds",
             changeUserNameText: "Change user name:",
-           
         }
     }
 
     submitMessage(inputName) {
+         console.log('Name is ' + this.props.username);
          
         return this.setState(inputName)
         }
