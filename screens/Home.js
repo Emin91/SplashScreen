@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, TouchableOpacity, ImageBackground, StatusBar, } from 'react-native'
+import { View, Image, TouchableOpacity, ImageBackground, StatusBar } from 'react-native'
 import Drawer from 'react-native-drawer'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
@@ -7,11 +7,30 @@ import Scrollist from './List'
 import Input from './Input'
 import DrawerMenu from './DrawerMenu'
 import styles from '../styles/HomeStyle'
+import NetInfo from "@react-native-community/netinfo";
+import DropdownAlert from 'react-native-dropdownalert';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
+  }
+
+  internetConnection = () => {
+    NetInfo.addEventListener(state => {
+        if (state.isInternetReachable === true) {
+          this.dropDownAlertRef.alertWithType('success', 'Success', 'Internet connection established' );
+        }  else if (state.isConnected === false) {
+          this.dropDownAlertRef.alertWithType('error', 'Error', 'Сheck internet connection');
+        }
+    });
+}
+
+componentDidMount() {
+    this.internetConnection()
+}
+componentWillUnmount() {
+    this.internetConnection()
   }
 
   renderDrawer() {
@@ -29,9 +48,7 @@ class App extends Component {
   closeDrawer() {
     this.drawer.close()
   }
-
- 
-
+  
   render() {
     return (
       <Drawer
@@ -66,6 +83,12 @@ class App extends Component {
             </View>
           </ImageBackground>
         </View>
+        <DropdownAlert 
+          ref={ref => this.dropDownAlertRef = ref} 
+          closeInterval={1000} 
+          errorImageSrc={require('../src/assets/img/wifioff.png')} 
+          successImageSrc={require('../src/assets/img/wifion.png')} 
+          panResponderEnabled={true}/>
       </Drawer>
     )
   }

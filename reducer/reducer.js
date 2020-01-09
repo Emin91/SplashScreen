@@ -68,13 +68,9 @@ function reducer(state = initialState, action) {
             console.log('buttom is working')
             back = '#8E44AD'
             return {...state, back }
-        }
-    
-   
-    
+        }    
         else if (action.id !== ''){
-            username= action.id
-            
+            username = action.id
             return  { ...state,username }
         }
 

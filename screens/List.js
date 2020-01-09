@@ -4,10 +4,11 @@ import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
 import { Dimensions } from "react-native";
-import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket'
 import UserMessage from './UserMessage'
 import Hyperlink from 'react-native-hyperlink'
 import PushNotification from "react-native-push-notification"
+
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -47,6 +48,7 @@ export class ScrollScreen extends Component {
   OurMess = ({ text, time, }) => {
     return (
       <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
+      
         <View style={{ flex: 1, paddingLeft: 100 }}>
           <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
             <Hyperlink linkDefault={true}>
@@ -78,7 +80,6 @@ export class ScrollScreen extends Component {
 
   ws = new WebSocket(URL)
   componentDidMount() {
-
     fetch('http://one-chat.eu-4.evennode.com/getmessages', {
       method: 'get',
     })
@@ -102,7 +103,7 @@ export class ScrollScreen extends Component {
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       this.addMessage(message)
-      //this.getNotification(message.name, message.text)
+      this.getNotification(message.name, message.text)
       // //console.log(message)
     }
     this.ws.onclose = () => {
@@ -113,6 +114,7 @@ export class ScrollScreen extends Component {
       //  })
     }
   }
+
 
   render() {
     return (
@@ -128,6 +130,7 @@ export class ScrollScreen extends Component {
                 return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               }
             }}
+
           />
         </Hyperlink>
       </ImageBackground>
@@ -139,6 +142,7 @@ function mapStateToProps(state) {
   return {
     result: state.result,
     back: state.back,
+    username: state.username
   }
 }
 
