@@ -25,14 +25,8 @@ export class ChatInput extends Component {
   componentWillUnmount() {
   }
 
-   guidGenerator() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return id=(S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-}
+   
   componentDidMount(){
-    this.guidGenerator()
   
     NetworkInfo.getIPAddress().then(ipAddress => {
       this.setState({ IP: ipAddress })
@@ -46,9 +40,7 @@ export class ChatInput extends Component {
     if (this.state.inputText !== "" && this.state.inputText.trim().length !== 0) {
       this.ws.send(JSON.stringify({
         text: this.state.inputText,
-        time: this.state.data,
         ip: this.state.IP,
-        id: 164946546,
         name: this.props.username
       }))
       this.setState({ inputText: '' })
@@ -62,9 +54,7 @@ export class ChatInput extends Component {
         },
         body: JSON.stringify({
           text: this.state.inputText,
-          time: this.state.date,
-          ip: this.state.IP,
-          id: 164946546,
+          ip: this.state.IP,       
           name: this.props.username
 
         })

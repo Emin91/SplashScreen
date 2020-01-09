@@ -3,7 +3,6 @@ import { Text, Linking, ImageBackground, View, FlatList, StyleSheet } from 'reac
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
 import { NetworkInfo } from 'react-native-network-info';
-import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { Dimensions } from "react-native";
 import UserMessage from './UserMessage'
 import PushNotification from "react-native-push-notification"
@@ -39,48 +38,22 @@ export class ScrollScreen extends Component {
       inputText: '',
       date: new Date('July 36, 2018 05:35'),
       ws: '',
-     
+
       IP: '',
     }
   }
 
-  
-  handleUrlPress(url, matchIndex /*: number*/) {
-    console.log ('URL is pressed')
-    Linking.openURL(url);
-  }
 
-
-
-  renderText(matchingString, matchIndex) {
-    let pattern = /\[(@[^:]+):([^\]]+)\]/i;
-    let match = matchingString.match(pattern);
-    return `^^${match[1]}^^`;
-  }
-
-
-
-  OurMess = ({ text, time, ip, name }) => {
+  OurMess = ({ text, time }) => {
 
 
     return (
       <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
         <View style={{ flex: 1, paddingLeft: 100 }}>
           <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
-          <ParsedText
-          
-          parse={
-            [
-              {type: 'url',                       style: styles.url, onPress: this.handleUrlPress},
-              {type: 'phone',                     style: styles.phone, onPress: this.handlePhonePress},
-              {type: 'email',                     style: styles.email, onPress: this.handleEmailPress},
-            ]
-          }
-          childrenProps={{allowFontScaling: false}}
-        >
-          {text}
-
-        </ParsedText>
+            <Text>
+              {text}
+            </Text>
           </View>
         </View>
         <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
@@ -107,7 +80,6 @@ export class ScrollScreen extends Component {
 
   ws = new WebSocket(URL)
   componentDidMount() {
-    this.setUserName()
 
     fetch('http://web-chat.eu-4.evennode.com/getmessages', {
       method: 'get',
@@ -131,9 +103,12 @@ export class ScrollScreen extends Component {
 
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
+
       this.addMessage(message)
-      if (message.name != this.props.username) {
-        this.getNotification(message.name, message.text)
+      if (message.time != undefined && message.text != this.state.messages.message) {
+        if (message.name != this.props.username) {
+          this.getNotification(message.name, message.text)
+        }
       }
       //console.log(message)
     }
@@ -141,34 +116,10 @@ export class ScrollScreen extends Component {
       console.log('disconnected')
       this.setState({
         ws: new WebSocket(URL),
-      })
+      });
+
     }
   }
-
-  setUserName() {
-    if(this.props.username==undefined){
-        new WebSocket('http://web-chat.eu-4.evennode.com/putuser').send(JSON.stringify({
-        id:this.props.ID,
-        name: 'User',
-        state: true,
-    }));
-    fetch(urlPut, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify({
-            id:this.props.ID,
-            name: 'User',
-            state: true,
-        }),
-    }).then((response) => response.json())
-       
-    console.log('SetUser' + setUserName());
-    }
-    
-}
 
 
   render() {
@@ -178,12 +129,15 @@ export class ScrollScreen extends Component {
           inverted={true}
           data={this.state.messages}
           renderItem={({ item }) => {
-            if (this.props.username!== item.name) {
-              return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}/>)
-            } else {
-              return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+            if (item.time !== undefined ) {
+              if (this.props.username !== item.name) {
+                return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+              } else {
+                return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+              }
             }
-          }}
+          }
+        }keyExtractor={(item, index) => 'key' + index}
         />
       </ImageBackground>
     )

@@ -82,6 +82,7 @@ function mapStateToProps(state) {
   return {
     result: state.result,
     back: state.back,
+    username: state.username
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { chacgebg } from '../action/action'
+import { chacgebg, chacgename } from '../action/action'
 import styles from '../styles/DrawerMenuStyle'
 
 export class DrawerMenu extends Component {
@@ -175,7 +175,7 @@ export class DrawerMenu extends Component {
                                 placeholder='Type something...'
                             />
                             <View style={styles.inputSendBtn}>
-                                <TouchableOpacity onPress={() => this.props.number(id = this.state.inputName)}>
+                                <TouchableOpacity onPress={() => this.props.name(this.state.inputName)}>
                                     <Image
                                         style={{width: 40, height: 34 }}
                                         source={require('../src/assets/img/Save.png')}
@@ -201,7 +201,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         number: (id) => dispatch(chacgebg(id)),
-       
+       name: (inputName) => dispatch(chacgename(inputName)),
     }
 }
 
