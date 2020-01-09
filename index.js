@@ -1,4 +1,4 @@
-import rootReducer from './reducer/reducer'
+import reducer from './reducer/reducer'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 
@@ -21,7 +21,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {  
-            username: '',
+        
             currentScreen: 'Splash' };
             setTimeout(()=>{
                 this.setState({
@@ -37,22 +37,7 @@ class Main extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        result: state.result,
-        back: state.back,
-        username: state.username
-    }
-}
 
-function mapDispatchToProps(dispatch) {
-    return {
-        number: (id) => dispatch(chacgebg(id)),
-       
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
 
 
 const persistConfig = {
@@ -61,7 +46,7 @@ const persistConfig = {
     whitelist: ['result', 'back','username']
   }
     
-  const persistedReducer = persistReducer(persistConfig, rootReducer)
+  const persistedReducer = persistReducer(persistConfig, reducer)
   
   const store = createStore(
     persistedReducer, applyMiddleware(createLogger())

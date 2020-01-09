@@ -92,9 +92,12 @@ export class ScrollScreen extends Component {
 
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
+
       this.addMessage(message)
-      if (message.name != this.props.username) {
-        this.getNotification(message.name, message.text)
+      if (message.time != undefined && message.text != this.state.messages.message) {
+        if (message.name != this.props.username) {
+          this.getNotification(message.name, message.text)
+        }
       }
       this.ws.onclose = () => {
         console.log('disconnected')
@@ -114,13 +117,15 @@ export class ScrollScreen extends Component {
             inverted={true}
             data={this.state.messages}
             renderItem={({ item }) => {
+            if (item.time !== undefined ) {
               if (this.props.username !== item.name) {
                 return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               } else {
                 return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               }
-            }}
-
+            }
+          }
+        }keyExtractor={(item, index) => 'key' + index}
           />
         </Hyperlink>
         </ImageBackground>

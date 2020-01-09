@@ -8,3 +8,10 @@ export const chacgebg = (id) => (
 	}
 )
 
+export const chacgename = (inputName) => (
+	{
+		type: 'Change',
+		inputName,
+		
+	}
+)

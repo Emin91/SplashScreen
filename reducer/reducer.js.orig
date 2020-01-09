@@ -66,7 +66,13 @@ function reducer(state = initialState, action) {
             console.log('buttom is working')
             back = '#8E44AD'
             return {...state, back }
+<<<<<<< HEAD
         }    
+        else if (action.id !== ''){
+            username = action.id
+            return  { ...state,username }
+=======
+        }
         else if(action.inputName !==''){
             username = action.inputName
             return  { ...state, username }
@@ -75,6 +81,7 @@ function reducer(state = initialState, action) {
             console.log('If srabotyal = ' + action.inputName);           
             username = 'User'            
             return  { ...state, username }
+>>>>>>> origin/My_Notification_Fixed
         }
 
     return state
