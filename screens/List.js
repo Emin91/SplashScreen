@@ -113,7 +113,7 @@ export class ScrollScreen extends Component {
     return (
       <ImageBackground style={{ flex: 1, }} >
         <Hyperlink linkDefault={true}>
-          <FlatList
+          <FlatList 
             inverted={true}
             data={this.state.messages}
             renderItem={({ item }) => {

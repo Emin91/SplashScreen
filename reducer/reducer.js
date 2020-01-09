@@ -67,15 +67,16 @@ function reducer(state = initialState, action) {
             back = '#8E44AD'
             return {...state, back }
         }    
-        else if(action.inputName !==''){
+        else if(action.inputName){
+            if(action.inputName == ''){
+                username = 'User'
+                return { ...state, username }
+            }
+            
             username = action.inputName
             return  { ...state, username }
         }  
-        else if (action.inputName === ''){
-            console.log('If srabotyal = ' + action.inputName);           
-            username = 'User'            
-            return  { ...state, username }
-        }
+    
 
     return state
 }
