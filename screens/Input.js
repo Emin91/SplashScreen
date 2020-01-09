@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
-import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import { NetworkInfo } from 'react-native-network-info';
 import styles from '../styles/InputStyle'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
-const URL = 'ws://one-chat.eu-4.evennode.com/'
+const URL = 'ws://web-chat.eu-4.evennode.com/'
 
 
 export class ChatInput extends Component {
@@ -20,10 +19,21 @@ export class ChatInput extends Component {
       IP: ''
     }
   }
-  ws = new ReconnectingWebSocket(URL)
+  ws = new WebSocket(URL)
+
+  
   componentWillUnmount() {
   }
+
+   guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return id=(S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
   componentDidMount(){
+    this.guidGenerator()
+  
     NetworkInfo.getIPAddress().then(ipAddress => {
       this.setState({ IP: ipAddress })
     })
@@ -33,16 +43,18 @@ export class ChatInput extends Component {
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
 
   submitMessage() {
-    if (this.state.inputText !== "") {
+    if (this.state.inputText !== "" && this.state.inputText.trim().length !== 0) {
       this.ws.send(JSON.stringify({
         text: this.state.inputText,
         time: this.state.data,
         ip: this.state.IP,
+        id: 164946546,
         name: this.props.username
       }))
       this.setState({ inputText: '' })
+      
 
-      fetch("http://one-chat.eu-4.evennode.com/putmessage", {
+      fetch("http://web-chat.eu-4.evennode.com/putmessage", {
         method: "put",
         headers: {
           'Accept': 'application/json',
@@ -52,6 +64,7 @@ export class ChatInput extends Component {
           text: this.state.inputText,
           time: this.state.date,
           ip: this.state.IP,
+          id: 164946546,
           name: this.props.username
 
         })
@@ -59,6 +72,9 @@ export class ChatInput extends Component {
         .then((response) => {
           console.log(response)
         })
+    } else {
+      this.setState({ inputText: '' })
+
     }
   }
 
@@ -105,6 +121,7 @@ function mapDispatchToProps(dispatch) {
        
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatInput)
 

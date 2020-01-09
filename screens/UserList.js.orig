@@ -60,8 +60,13 @@ class UserList extends Component {
                 <View style={styles.headerView}>
                 </View>
                 <View style={styles.sepView}>
+<<<<<<< HEAD
                     <Text style={styles.headerViewText} adjustsFontSizeToFit={true} numberOfLines={1}>List of
                     <Text style={styles.textOnline} > Online </Text>
+=======
+                    <Text style={styles.headerViewText}>List of
+                    <Text style={styles.textOnline}> Online </Text>
+>>>>>>> My_Notification_Fixed
                         Users
                     </Text>
                 </View>
@@ -71,6 +76,10 @@ class UserList extends Component {
                         data={this.state.messages}
                         renderItem={({ item }) => {
                             if (item.state == true) {
+<<<<<<< HEAD
+                                return (<this.onlineUsers name={item.name} />)
+                            }
+=======
                                 if (item.name === undefined){
 
                                    return(<this.onlineUsers  name = 'Undefined User' />)
@@ -79,6 +88,7 @@ class UserList extends Component {
                                 return (<this.onlineUsers name={item.name
                                 }/>)
                             }}
+>>>>>>> My_Notification_Fixed
                         }
                         }
                         keyExtractor={item => item._id}
@@ -96,6 +106,10 @@ class UserList extends Component {
                         data={this.state.messages}
                         renderItem={({ item }) => {
                             if (item.state !== true) {
+<<<<<<< HEAD
+                                return (<this.offlineUsers name={item.name} />)
+                            }
+=======
                                 if (item.name === undefined){
 
                                     return(<this.onlineUsers  name = 'Undefined User' />)
@@ -104,6 +118,7 @@ class UserList extends Component {
                                 return (<this.offlineUsers name={item.name
                                 } />)
                             }}
+>>>>>>> My_Notification_Fixed
                         }
                         }
                         keyExtractor={item => item._id}

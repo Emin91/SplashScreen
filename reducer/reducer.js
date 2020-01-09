@@ -1,10 +1,10 @@
-import {ToastAndroid} from 'react-native';
-
 export const initialState = {
+    username: 'User',
     result: require('../src/assets/img/default.jpg'),
     back:'#FC441B',
-    username: 'User'
+    
 }
+
 
 function reducer(state = initialState, action) {
   
