@@ -28,7 +28,7 @@ PushNotification.configure({
 });
 
 const screenWidth = Math.round(Dimensions.get('window').width);
-const URL = 'ws://one-chat.eu-4.evennode.com/'
+const URL = 'ws://web-chat.eu-4.evennode.com/'
 
 export class ScrollScreen extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export class ScrollScreen extends Component {
       inputText: '',
       date: new Date('July 36, 2018 05:35'),
       ws: '',
-      name: '',
+     
       IP: '',
     }
   }
@@ -105,10 +105,11 @@ export class ScrollScreen extends Component {
   addMessage = message =>
     this.setState(state => ({ messages: [message, ...this.state.messages] }))
 
-  ws = new ReconnectingWebSocket(URL)
+  ws = new WebSocket(URL)
   componentDidMount() {
+    this.setUserName()
 
-    fetch('http://one-chat.eu-4.evennode.com/getmessages', {
+    fetch('http://web-chat.eu-4.evennode.com/getmessages', {
       method: 'get',
     })
       .then(response => response.json())
@@ -144,6 +145,32 @@ export class ScrollScreen extends Component {
     }
   }
 
+  setUserName() {
+    if(this.props.username==undefined){
+        new WebSocket('http://web-chat.eu-4.evennode.com/putuser').send(JSON.stringify({
+        id:this.props.ID,
+        name: 'User',
+        state: true,
+    }));
+    fetch(urlPut, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+            id:this.props.ID,
+            name: 'User',
+            state: true,
+        }),
+    }).then((response) => response.json())
+       
+    console.log('SetUser' + setUserName());
+    }
+    
+}
+
+
   render() {
     return (
       <ImageBackground style={{ flex: 1, }} >
@@ -151,7 +178,7 @@ export class ScrollScreen extends Component {
           inverted={true}
           data={this.state.messages}
           renderItem={({ item }) => {
-            if (this.state.IP !== item.ip) {
+            if (this.props.username!== item.name) {
               return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}/>)
             } else {
               return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
@@ -163,10 +190,12 @@ export class ScrollScreen extends Component {
   }
 }
 
+
 function mapStateToProps(state) {
   return {
     result: state.result,
     back: state.back,
+    username: state.username
   }
 }
 

@@ -2,7 +2,16 @@ import React, { Component } from 'react'
 import { Image, View, StatusBar } from 'react-native'
 import styles from '../styles/SplashScreenStyle'
 
-export default class SplashScreen extends Component {
+
+
+
+ export default class SplashScreen extends Component {
+    constructor(props) {
+        super(props);
+      
+      }
+
+   
     render() {
         return (
             <View style={styles.container}>
@@ -14,3 +23,4 @@ export default class SplashScreen extends Component {
         )
     }
 }
+
