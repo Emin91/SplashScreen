@@ -132,7 +132,7 @@ export class ScrollScreen extends Component {
             data={this.state.messages}
             renderItem={({ item }) => {
             if (item.time !== undefined ) {
-              if (this.state.IP !== item.ip) {
+              if (this.props.username !== item.name) {
                 return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               } else {
                 return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
