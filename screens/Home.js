@@ -18,11 +18,9 @@ class App extends Component {
 
   internetConnection = () => {
     NetInfo.addEventListener(state => {
-        if (state.isInternetReachable === true) {
-          this.dropDownAlertRef.alertWithType('success', 'Success', 'Internet connection established' );
-        }  else if (state.isConnected === false) {
-          this.dropDownAlertRef.alertWithType('error', 'Error', 'Сheck internet connection');
-        }
+        if (state.isConnected === false) {
+          this.dropDownAlertRef.alertWithType('error', 'Error', 'Internet connection failed' );
+        }  
     });
 }
 

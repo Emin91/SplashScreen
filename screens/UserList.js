@@ -36,7 +36,7 @@ class UserList extends Component {
 
     ws = new ReconnectingWebSocket(URL)
     componentDidMount() {
-        fetch('http://one-chat.eu-4.evennode.com/getusers', {
+        fetch('http://web-chat.eu-4.evennode.com/getusers', {
             method: 'get',
         })
             .then(response => response.json())
@@ -72,7 +72,6 @@ class UserList extends Component {
                         renderItem={({ item }) => {
                             if (item.state == true) {
                                 if (item.name === undefined){
-
                                    return(<this.onlineUsers  name = 'Undefined User' />)
                                 }
                                 else{
@@ -97,8 +96,7 @@ class UserList extends Component {
                         renderItem={({ item }) => {
                             if (item.state !== true) {
                                 if (item.name === undefined){
-
-                                    return(<this.onlineUsers  name = 'Undefined User' />)
+                                    return(<this.onlineUsers  name = 'User' />)
                                  }
                                  else{
                                 return (<this.offlineUsers name={item.name

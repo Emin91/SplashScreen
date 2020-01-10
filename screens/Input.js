@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View, TextInput, TouchableOpacity, Image, } from 'react-native'
-import { NetworkInfo } from 'react-native-network-info';
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import styles from '../styles/InputStyle'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
-const URL = 'ws://web-chat.eu-4.evennode.com/'
+const URL = 'ws://web-chat.eu-4.evennode.com'
 
 
 export class ChatInput extends Component {
@@ -21,16 +21,24 @@ export class ChatInput extends Component {
   }
   ws = new WebSocket(URL)
 
-  
+  getIp() {
+    fetch('http://web-chat.eu-4.evennode.com/getIp', {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ IP: responseJson.ip });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+  ws = new ReconnectingWebSocket(URL)
   componentWillUnmount() {
   }
-
    
   componentDidMount(){
-  
-    NetworkInfo.getIPAddress().then(ipAddress => {
-      this.setState({ IP: ipAddress })
-    })
+    this.getIp()
   }
 
   addMessage = message =>
@@ -56,7 +64,6 @@ export class ChatInput extends Component {
           text: this.state.inputText,
           ip: this.state.IP,       
           name: this.props.username
-
         })
       })
         .then((response) => {

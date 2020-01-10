@@ -2,7 +2,7 @@ export const initialState = {
     username: 'User',
     result: require('../src/assets/img/default.jpg'),
     back:'#FC441B',
-    
+    loged: 'loged uje'
 }
 
 
@@ -68,11 +68,11 @@ function reducer(state = initialState, action) {
             return {...state, back }
         }    
         else if(action.inputName){
-            if(action.inputName == ''){
+            if(action.inputName == '' ){
+               
                 username = 'User'
                 return { ...state, username }
-            }
-            
+            } 
             username = action.inputName
             return  { ...state, username }
         }  

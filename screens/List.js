@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Text, ImageBackground, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
-import { NetworkInfo } from 'react-native-network-info';
-import { Dimensions } from "react-native";
 import UserMessage from './UserMessage'
 import Hyperlink from 'react-native-hyperlink'
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 import PushNotification from "react-native-push-notification"
+const URL = 'ws://web-chat.eu-4.evennode.com/'
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -26,7 +26,7 @@ PushNotification.configure({
   requestPermissions: true
 });
 
-const URL = 'ws://web-chat.eu-4.evennode.com/'
+ws = new ReconnectingWebSocket(URL)
 
 export class ScrollScreen extends Component {
   constructor(props) {
@@ -71,6 +71,19 @@ export class ScrollScreen extends Component {
     })
   }
 
+  getIp() {
+    fetch('http://web-chat.eu-4.evennode.com/getIp', {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ IP: responseJson.ip });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   addMessage = message => this.setState(state => ({ messages: [message, ...this.state.messages] }))
   ws = new WebSocket(URL)
   componentDidMount() {
@@ -106,6 +119,7 @@ export class ScrollScreen extends Component {
         })
       }
     }
+    this.getIp()
   }
 
 
@@ -118,7 +132,7 @@ export class ScrollScreen extends Component {
             data={this.state.messages}
             renderItem={({ item }) => {
             if (item.time !== undefined ) {
-              if (this.props.username !== item.name) {
+              if (this.state.IP !== item.ip) {
                 return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
               } else {
                 return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)

@@ -9,10 +9,6 @@ import Hyper from './socket'
 
 export class UserMessage extends Component {
 
-
-
-
-
     render() {
         return (
             <View style={{ flex: 1, marginRight: '25%', marginTop: 2, marginBottom: 2, }} >
@@ -27,7 +23,7 @@ export class UserMessage extends Component {
                 <View style={{ flex: 1.5, flexDirection: 'row' }}>
                     <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', paddingLeft: 5, paddingBottom: 2 }}>
                         <Hyperlink linkDefault={true}>
-                            <Text style={{ fontSize: 20, color: '#000', fontFamily: 'CircularStd-Book' }} adjustsFontSizeToFit={true} numberOfLines={1}>{this.props.text}</Text>
+                            <Text style={{ fontSize: 20, color: '#000', fontFamily: 'CircularStd-Book' }}>{this.props.text}</Text>
                         </Hyperlink>
                     </View>
                     <View style={{ flex: 0.4, backgroundColor: '#fff', borderTopRightRadius: 10, borderBottomRightRadius: 10, alignItems: 'flex-end', paddingRight: 10, paddingTop: 3 }}>
