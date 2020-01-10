@@ -1,42 +1,116 @@
 import React, { Component } from 'react'
-import { Text, ImageBackground, View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Text, ImageBackground, View, FlatList, } from 'react-native'
 import { connect } from 'react-redux'
 import { chacgebg } from '../action/action'
+import UserMessage from './UserMessage'
+import Hyperlink from 'react-native-hyperlink'
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
+const URL = 'ws://web-chat.eu-4.evennode.com/'
+
+ws = new ReconnectingWebSocket(URL)
 
 export class ScrollScreen extends Component {
   constructor(props) {
-    super(props)
-}
+    super(props);
+    this.state = {
+      isLoading: true,
+      messages: [],
+      inputText: '',
+      date: new Date('July 36, 2018 05:35'),
+      ws: '',
+      IP: '',
+    }
+  }
+
+  OurMess = ({ text, time, }) => {
+    return (
+      <View style={{ flexDirection: 'row', paddingBottom: 2, paddingTop: 2 }} >
+      
+        <View style={{ flex: 1, paddingLeft: 100 }}>
+          <View style={{ paddingLeft: 15, paddingTop: 2, paddingBottom: 5, backgroundColor: this.props.back, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, }}>
+            <Hyperlink linkDefault={true}>
+              <Text style={{ fontSize: 20, color: '#fff', fontFamily: 'CircularStd-Book', }}>{text}</Text>
+            </Hyperlink>
+          </View>
+        </View>
+        <View style={{ backgroundColor: this.props.back, paddingRight: 5, paddingTop: 5, justifyContent: 'flex-start' }}>
+          <Text style={{ color: '#c2c2c2' }}>{time}</Text>
+        </View>
+      </View>
+    )
+  }
+
+
+  getIp() {
+    fetch('http://web-chat.eu-4.evennode.com/getIp', {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ IP: responseJson.ip });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  addMessage = message => this.setState(state => ({ messages: [message, ...this.state.messages] }))
+  ws = new WebSocket(URL)
+  componentDidMount() {
+    fetch('http://web-chat.eu-4.evennode.com/getmessages', {
+      method: 'get',
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ isLoading: false, messages: responseJson.reverse() });
+        //console.log(responseJson);
+      })
+      .catch(error => {
+        //console.error(error);
+      });
+
+    this.ws.onopen = () => {
+      //console.log('connected')
+    }
+
+    this.ws.onmessage = evt => {
+      const message = JSON.parse(evt.data)
+
+      this.addMessage(message)
+      if (message.time != undefined && message.text != this.state.messages.message) {
+        if (message.name != this.props.username) {
+        }
+      }
+      this.ws.onclose = () => {
+        console.log('disconnected')
+        this.setState({
+          ws: new WebSocket(URL),
+        })
+      }
+    }
+    this.getIp()
+  }
+
 
   render() {
     return (
-      <ImageBackground style={{ flex: 1, }}  >
-        <KeyboardAwareScrollView style={{ width: '100%', height: '100%', marginTop: 10 }}>
-          <View style={{ width: 223, flex: 1, backgroundColor: '#FFFFFF', marginBottom: 2, borderBottomRightRadius: 20, borderTopRightRadius: 20, borderWidth: 1, borderColor: '#DCDCDC' }}>
-            <Text> User3             192.168.243.332</Text>
-          </View>
-          <View style={{ width: 223, flexDirection: 'row', flex: 1, backgroundColor: '#FFFFFF', borderTopRightRadius: 20, borderBottomRightRadius: 20, borderWidth: 1, borderColor: '#DCDCDC' }}>
-            <View style={{ flex: 3, justifyContent: 'flex-start' }}><Text style={{ marginLeft: 10, fontSize: 18, }}> Hi.</Text></View>
-            <View style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end' }}><Text> 12:24</Text></View>
-          </View>
-          <View style={{ flexDirection: 'row-reverse', paddingTop: 5, paddingBottom: 4 }}>
-            <View style={{ width: 290, paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 20, borderTopLeftRadius: 20, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back }}>
-              <Text> Hi. I am Test</Text>
-              <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
-                <Text style={{ color: '#EDEDED', }}>6:30 PM</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{ flexDirection: 'row-reverse' }}>
-            <View style={{ width: 290, paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 60, borderBottomLeftRadius: 20, borderTopLeftRadius: 20, fontSize: 18, color: '#FFFFFF', fontFamily: 'CircularStd-Book', backgroundColor: this.props.back }}>
-              <Text> Lorem </Text>
-              <View style={{ height: '100%', position: 'absolute', alignSelf: 'flex-end', justifyContent: 'flex-start' }}>
-                <Text style={{ color: '#EDEDED' }}>6:30 PM</Text>
-              </View>
-            </View>
-          </View>
-        </KeyboardAwareScrollView>
+      <ImageBackground style={{ flex: 1, }} >
+        <Hyperlink linkDefault={true}>
+          <FlatList
+            inverted={true}
+            data={this.state.messages}
+            renderItem={({ item }) => {
+              if (item.time !== undefined) {
+                if (this.props.username !== item.name) {
+                  return (<UserMessage text={item.text} name={item.name} ip={item.ip} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+                } else {
+                  return (<this.OurMess text={item.text} time={new Date(item.time).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')} />)
+                }
+              }
+            }
+            } keyExtractor={(item, index) => 'key' + index}
+          />
+        </Hyperlink>
       </ImageBackground>
     )
   }
@@ -46,15 +120,14 @@ function mapStateToProps(state) {
   return {
     result: state.result,
     back: state.back,
+    username: state.username
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     number: (id) => dispatch(chacgebg(id)),
-
-
   }
-
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollScreen)

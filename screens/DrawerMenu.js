@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { chacgebg, } from '../action/action'
+import { chacgebg, chacgename } from '../action/action'
 import styles from '../styles/DrawerMenuStyle'
 
 export class DrawerMenu extends Component {
@@ -13,9 +13,28 @@ export class DrawerMenu extends Component {
             changeUserNameText: "Change user name:",
         }
     }
+
+    submitMessage(inputName) {
+        fetch("http://web-chat.eu-4.evennode.com/putchangeuser", {
+            method: "put",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                name: this.props.username
+            })
+        })
+            .then((response) => {
+                console.log(response)
+            })
+
+        return this.setState(inputName)
+    }
+
     render() {
         return (
-            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F23A12', }} behavior='padding' keyboardVerticalOffset={-10} enabled>
+            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#FC441B', }} behavior='padding' keyboardVerticalOffset={-255} enabled>
                 <ScrollView style={{ flex: 1 }}>
                     <View style={styles.container}>
                         <View style={styles.logoView}>
@@ -27,7 +46,7 @@ export class DrawerMenu extends Component {
                             <View style={{ flex: 1, borderRadius: 10, backgroundColor: '#fff', }}>
                                 <View style={{ flex: 1, alignItems: 'center', }}>
                                     <View style={styles.textView}>
-                                        <Text style={{ fontSize: 18, fontFamily: 'CircularStd-Book' }}>
+                                        <Text style={{ fontSize: 14, fontFamily: 'CircularStd-Book' }} adjustsFontSizeToFit={true} numberOfLines={1}>
                                             {this.state.colorTitle}
                                         </Text>
                                     </View>
@@ -81,7 +100,7 @@ export class DrawerMenu extends Component {
                             <View style={{ flex: 1, borderRadius: 10, backgroundColor: '#fff', }}>
                                 <View style={{ flex: 1, alignItems: 'center', }}>
                                     <View style={styles.textView}>
-                                        <Text style={{ fontSize: 18, fontFamily: 'CircularStd-Book' }}>
+                                        <Text style={{ fontSize: 14, fontFamily: 'CircularStd-Book' }} adjustsFontSizeToFit={true} numberOfLines={1}>
                                             {this.state.backgroundTitle}
                                         </Text>
                                     </View>
@@ -159,17 +178,19 @@ export class DrawerMenu extends Component {
                             </View>
                         </View>
                         <View style={styles.changeUserNameView}>
-                            <Text style={styles.changeUserNameText}>{this.state.changeUserNameText}</Text>
+                            <Text style={styles.changeUserNameText} adjustsFontSizeToFit={true} numberOfLines={1}>{this.state.changeUserNameText}</Text>
                         </View>
-                        <View style={{ paddingLeft: 5, }}>
+                        <View style={{ paddingLeft: 5, paddingRight: 5 }}>
                             <TextInput
+                                onChangeText={inputName => this.submitMessage({ inputName })}
                                 style={styles.textInputStyle}
+                                selectionColor={'#fc441b'}
                                 placeholder='Type something...'
                             />
                             <View style={styles.inputSendBtn}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.props.name(this.state.inputName)}>
                                     <Image
-                                        style={{ width: 40, height: 34, position: 'absolute', left: -35, }}
+                                        style={{ width: 40, height: 34 }}
                                         source={require('../src/assets/img/Save.png')}
                                     />
                                 </TouchableOpacity>
@@ -186,15 +207,15 @@ function mapStateToProps(state) {
     return {
         result: state.result,
         back: state.back,
+        username: state.username
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         number: (id) => dispatch(chacgebg(id)),
+        name: (inputName) => dispatch(chacgename(inputName)),
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu)
-
-

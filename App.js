@@ -6,7 +6,7 @@ import DrawerNav from './navigation/DrawerNavigation'
 export default class App extends Component {
   render() {
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#FC441B'}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#FC441B', height: '60%'}}>
         <DrawerNav />
       </SafeAreaView>
     )

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F23A12',
+        backgroundColor: '#FC441B',
     },
     logoView: {
         marginTop: 10,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     changeUserNameView: {
         flex: 1, 
-        backgroundColor: '#F23A12', 
+        backgroundColor: '#FC441B', 
         alignItems: 'center', 
         paddingTop: 10
     },

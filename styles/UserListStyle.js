@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         height: 10, 
         borderRadius: 30,
     },
-    redDot: {
+    greyDot: {
         backgroundColor: '#626262', 
         width: 10, 
         height: 10, 

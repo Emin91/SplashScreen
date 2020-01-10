@@ -1,4 +1,4 @@
-import rootReducer from './reducer/reducer'
+import reducer from './reducer/reducer'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 
@@ -15,17 +15,19 @@ import {PersistGate} from 'redux-persist/es/integration/react'
 //disable yellow warning
 console.disableYellowBox=true;
 
-export default class Main extends Component {
+class Main extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {  
+        
             currentScreen: 'Splash' };
-        setTimeout(()=>{
-            this.setState({
-                currentScreen: 'App'})
-        }, 2000)
-    }
-
+            setTimeout(()=>{
+                this.setState({
+                    currentScreen: 'App'})
+                }, 2000)
+            }
+            
+         
     render() {
         const {currentScreen} = this.state
         let mainScreen = currentScreen === 'Splash' ? <SplashScreen /> : <Myentrypoint />
@@ -33,13 +35,16 @@ export default class Main extends Component {
     }
 }
 
+
+
+
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['result', 'back']
+    whitelist: ['result', 'back', 'username']
   }
     
-  const persistedReducer = persistReducer(persistConfig, rootReducer)
+  const persistedReducer = persistReducer(persistConfig, reducer)
   
   const store = createStore(
     persistedReducer, applyMiddleware(createLogger())
