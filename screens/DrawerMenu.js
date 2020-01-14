@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { chacgebg, chacgename } from '../action/action'
+import { changeBackColor, changeMessBack,chacgeName } from '../action/action'
 import styles from '../styles/DrawerMenuStyle'
 
 export class DrawerMenu extends Component {
@@ -16,6 +16,8 @@ export class DrawerMenu extends Component {
     }
 
     submitMessage(inputName) {
+        console.log('////////////////////////////////'+this.props.username);
+        
         fetch("http://web-chat.eu-4.evennode.com/putchangeuser", {
             method: "put",
             headers: {
@@ -58,17 +60,17 @@ export class DrawerMenu extends Component {
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={[styles.colorsBtn, { backgroundColor: '#FC441B' }]}
-                                                onPress={() => this.props.number(id = "1")} />
+                                                onPress={() => this.props.backColor(color = "1")} />
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={[styles.colorsBtn, { backgroundColor: '#2980B9' }]}
-                                                onPress={() => this.props.number(id = "2")} />
+                                                onPress={() => this.props.backColor(color = "2")} />
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={[styles.colorsBtn, { backgroundColor: '#2ECC71' }]}
-                                                onPress={() => this.props.number(id = "3")} />
+                                                onPress={() => this.props.backColor(color = "3")} />
                                         </View>
                                         <View style={{ flex: 0.05 }}></View>
                                     </View>
@@ -77,17 +79,17 @@ export class DrawerMenu extends Component {
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={[styles.colorsBtn, { backgroundColor: '#2C3E50' }]}
-                                                onPress={() => this.props.number(id = "4")} />
+                                                onPress={() => this.props.backColor(color = "4")} />
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={[styles.colorsBtn, { backgroundColor: '#F39C12' }]}
-                                                onPress={() => this.props.number(id = "5")} />
+                                                onPress={() => this.props.backColor(color = "5")} />
                                         </View>
                                         <View style={styles.colorsBtnBox}>
                                             <TouchableOpacity
                                                 style={[styles.colorsBtn, { backgroundColor: '#8E44AD' }]}
-                                                onPress={() => this.props.number(id = "6")} />
+                                                onPress={() => this.props.backColor(color = "6")} />
                                         </View>
                                         <View style={{ flex: 0.05 }}></View>
                                     </View>
@@ -206,16 +208,17 @@ export class DrawerMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        result: state.result,
-        back: state.back,
-        username: state.username
+        back: state.back.back,
+        result: state.back.result,
+        username: state.name.username
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        number: (id) => dispatch(chacgebg(id)),
-        name: (inputName) => dispatch(chacgename(inputName)),
+        backColor: (color) => dispatch(changeMessBack(color)),
+        number: (id) => dispatch(changeBackColor(id)),
+        name: (inputName) => dispatch(chacgeName(inputName)),
     }
 }
 

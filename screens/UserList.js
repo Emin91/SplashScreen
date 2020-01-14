@@ -42,10 +42,10 @@ class UserList extends Component {
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({ isLoading: false, messages: responseJson.reverse() });
-                console.log(responseJson);
+                // console.log(responseJson);
             })
             .catch(error => {
-                console.error(error);
+                // console.error(error);
             });
         this.ws.onclose = () => {
             console.log('disconnected')

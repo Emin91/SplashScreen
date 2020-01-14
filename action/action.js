@@ -1,17 +1,19 @@
+export const changeMessBack = (color) => ({
+	type: 'ChangeMessageBackground',
+	color,
+})
 
-
-export const chacgebg = (id) => (
+export const changeBackColor = (id) => (
 	{
-		type: 'Change',
+		type: 'ChangeBackground',
 		id,
 		
 	}
 )
 
-export const chacgename = (inputName) => (
+export const chacgeName = (inputName) => (
 	{
 		type: 'Change',
 		inputName,
-		
 	}
 )

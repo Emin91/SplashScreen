@@ -149,8 +149,8 @@ export class ScrollScreen extends Component {
 
 function mapStateToProps(state) {
   return {
-    result: state.result,
-    back: state.back,
+    result: state.back.result,
+    back: state.back.back,
     username: state.username
   }
 }

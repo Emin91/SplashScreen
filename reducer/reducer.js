@@ -1,88 +1,70 @@
 export const initialState = {
-    username: 'User',
     result: require('../src/assets/img/default.jpg'),
-    back:'#FC441B',
-    loged: 'loged uje'
+    back: '#FC441B',
 }
 
-
 function reducer(state = initialState, action) {
-  
-    if (action.id == 7) {
-            console.log('buttom is working')
-            result = require('../src/assets/img/bg1.png')
-            return { ...state,result: JSON.stringify(result) }
-        }
-        else if (action.id == 8) {
-            console.log('buttom is working')
-            result = require('../src/assets/img/bg2.png')
-            return {...state, result: JSON.stringify(result) }
-        }
-        else if (action.id == 9) {
-            console.log('buttom is working')
-            result = require('../src/assets/img/bg3.png')
-            return {...state, result: JSON.stringify(result) }
-        }
-        else if (action.id == 10) {
-            console.log('buttom is working')
-            result = require('../src/assets/img/bg4.png')
-            return { ...state,result: JSON.stringify(result) }
-        }
-        else if (action.id == 11) {
-            console.log('buttom is working')
-            result = require('../src/assets/img/bg5.png')
-            return {...state, result: JSON.stringify(result) }
-        }
-        else if (action.id == 12) {
-            console.log('buttom is working')
-            result = require('../src/assets/img/default.jpg')
-            return { ...state,result: JSON.stringify(result) }
-        }        
-        else if (action.id == 1) {
-            back = '#FC441B'
-            return {...state, back }
-        }
-        else if (action.id == 2) {
-            console.log('buttom is working')
-            back = '#2980B9'          
-            return { ...state,back }
-        }
-        else if (action.id == 3) {
-            console.log('buttom is working')
-            back = '#2ECC71'
-            return { ...state,back }
-        }
-        else if (action.id == 4) {
-            console.log('buttom is working')
-            back = '#2C3E50'
-            return { ...state,back }
-        }
-        else if (action.id == 5) {
-            console.log('buttom is working')
-            back = '#F39C12'
-            return {...state, back}
-        }
-        else if (action.id == 6) {
-            console.log('buttom is working')
-            back = '#8E44AD'
-            return {...state, back }
-        }    
-        else if(action.inputName){
-            if(action.inputName == '' ){
-               
-                username = 'User'
-                return { ...state, username }
-            } 
-            username = action.inputName
-            return  { ...state, username }
-        }  
     
-
+    switch (action.type) {
+        case 'ChangeMessageBackground':
+            {
+                switch (color) {
+                    case '1': {
+                        back = '#FC441B'
+                        return { ...state, back }
+                    }
+                    case '2': {
+                        back = '#2980B9'
+                        return { ...state, back }
+                    }
+                    case '3': {
+                        back = '#2ECC71'
+                        return { ...state, back }
+                    }
+                    case '4': {
+                        back = '#2C3E50'
+                        return { ...state, back }
+                    }
+                    case '5': {
+                        back = '#F39C12'
+                        return { ...state, back }
+                    }
+                    case '6': {
+                        back = '#8E44AD'
+                        return { ...state, back }
+                    }
+                }
+            }
+        case 'ChangeBackground': {
+            switch (id) {
+                case '7': {
+                    result = require('../src/assets/img/bg1.png')
+                    return { ...state, result: JSON.stringify(result) }
+                }
+                case '8': {
+                    result = require('../src/assets/img/bg2.png')
+                    return { ...state, result: JSON.stringify(result) }
+                }
+                case '9': {
+                    result = require('../src/assets/img/bg3.png')
+                    return { ...state, result: JSON.stringify(result) }
+                }
+                case '10': {
+                    result = require('../src/assets/img/bg4.png')
+                    return { ...state, result: JSON.stringify(result) }
+                }
+                case '11': {
+                    result = require('../src/assets/img/bg5.png')
+                    return { ...state, result: JSON.stringify(result) }
+                }
+                case '12': {
+                    result = require('../src/assets/img/default.jpg')
+                    return { ...state, result: JSON.stringify(result) }
+                }
+            }
+        }
+    }
     return state
 }
 
 export default reducer
-
-
-
-

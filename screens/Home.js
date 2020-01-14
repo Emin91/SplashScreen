@@ -59,7 +59,7 @@ componentWillUnmount() {
         side={'left'}>
         <View style={{ flex: 1, }}>
           <StatusBar backgroundColor="#F23A12" barStyle="light-content" />
-          <ImageBackground style={styles.container} source={this.props.result}>
+          <ImageBackground style={styles.container} source={this.props.back.result}>
             <View style={styles.container}>
               <View style={{ width: '100%', height: 60, backgroundColor: '#fc441b', alignItems: 'center', justifyContent: 'center', paddingTop: 5, paddingBottom: 5 }}>
                 <Image

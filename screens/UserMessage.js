@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import Hyperlink from 'react-native-hyperlink'
-import Hyper from './socket'
 
 
 
